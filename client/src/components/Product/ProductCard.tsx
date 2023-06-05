@@ -31,17 +31,19 @@ const ProductCard = ({ product }: Props) => {
       />
       <CardMedia
         sx={{
+          width: '100%',
           height: 0,
-          paddingTop: "100%",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          paddingTop: '80%',
+          objectFit: 'cover',
+          "@media (max-width: 600px)": {
+            paddingTop: '83%',
+          },
         }}
         image={product.imageUrl}
         title="product-image"
       />
       <CardContent>
-        <Typography gutterBottom color={green[900]} variant="h5">
+        <Typography gutterBottom variant="h5">
           ${(product.price / 100).toFixed(2)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
