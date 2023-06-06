@@ -1,4 +1,3 @@
-import ProductPage from "../../components/Product/ProductPage";
 import Navbar from "../../components/Navbar";
 import {
   Container,
@@ -7,6 +6,7 @@ import {
   createTheme,
 } from "@mui/material";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -17,22 +17,22 @@ function App() {
     palette: {
       mode: paletteType,
       background: {
-        default: paletteType === 'light' ? "#eaeaea" : "#121212"
-      }
+        default: paletteType === "light" ? "#eaeaea" : "#121212",
+      },
     },
   });
 
   const handleChange = () => {
-    setDarkMode(!darkMode)
-  }
+    setDarkMode(!darkMode);
+  };
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar darkMode={darkMode} handleChange={handleChange}/>
+        <Navbar darkMode={darkMode} handleChange={handleChange} theme={theme} />
         <Container>
-          <ProductPage />
+          <Outlet />
         </Container>
       </ThemeProvider>
     </>

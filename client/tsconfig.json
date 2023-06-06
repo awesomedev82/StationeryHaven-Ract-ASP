@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "src/components/Product/ProductList.tsx"  ]
+, "src/components/product/ProductList.tsx"  ]
 }

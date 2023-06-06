@@ -1,5 +1,5 @@
-import { Product } from "../../app/models/product";
-import ProductList from "./ProductList";
+import { Product } from "../models/product";
+import ProductList from "../../components/product/ProductList";
 import { useState, useEffect } from "react";
 
 const ProductPage = () => {
