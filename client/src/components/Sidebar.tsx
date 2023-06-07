@@ -55,7 +55,7 @@ const Sidebar = () => {
           <ShoppingCart />
         </Badge>
 
-        <IconButton onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <IconButton onClick={() => setSidebarOpen(!sidebarOpen)} sx={{height: '2rem'}}>
           <MenuIcon />
         </IconButton>
       </Box>

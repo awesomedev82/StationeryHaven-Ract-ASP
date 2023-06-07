@@ -9,7 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Product } from "../../app/models/product";
-import { green } from "@mui/material/colors";
+import { amber, green } from "@mui/material/colors";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link } from "react-router-dom";
 
 interface Props {
   product: Product;
@@ -31,12 +33,12 @@ const ProductCard = ({ product }: Props) => {
       />
       <CardMedia
         sx={{
-          width: '100%',
+          width: "100%",
           height: 0,
-          paddingTop: '80%',
-          objectFit: 'cover',
+          paddingTop: "80%",
+          objectFit: "cover",
           "@media (max-width: 600px)": {
-            paddingTop: '83%',
+            paddingTop: "83%",
           },
         }}
         image={product.imageUrl}
@@ -50,12 +52,27 @@ const ProductCard = ({ product }: Props) => {
           {product.brand} / {product.type}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small" variant="contained">
-          Add to cart
-        </Button>
-        <Button size="small" variant="contained">
+
+      <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
+        <Button
+          size="small"
+          variant="contained"
+          style={{
+            backgroundColor: "#f5f5dc",
+            color: "rgba(25, 25, 25, 0.67)",
+          }}
+          component={Link}
+          to={`/product/${product.id}`}
+        >
           View
+        </Button>
+        <Button
+          size="small"
+          variant="contained"
+          style={{ backgroundColor: amber[700] }}
+          endIcon={<ShoppingCartIcon />}
+        >
+          Add to cart
         </Button>
       </CardActions>
     </Card>
