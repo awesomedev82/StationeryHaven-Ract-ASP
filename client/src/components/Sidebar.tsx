@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { links } from "../lib/constants";
 import { NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
+import { baseFlexStyles } from "../muiStyles/flexStyle";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -50,12 +51,15 @@ const Sidebar = () => {
         </List>
       </Drawer>
 
-      <Box sx={{ display: "flex", alignItems: "center", gap: "6%" }}>
+      <Box sx={{ ...baseFlexStyles, gap: "6%" }}>
         <Badge badgeContent="4" color="success">
           <ShoppingCart />
         </Badge>
 
-        <IconButton onClick={() => setSidebarOpen(!sidebarOpen)} sx={{height: '2rem'}}>
+        <IconButton
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          sx={{ height: "2rem" }}
+        >
           <MenuIcon />
         </IconButton>
       </Box>

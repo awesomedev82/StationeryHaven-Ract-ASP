@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/product";
 import Loading from "../Loading";
-import NotFound from "../NotFound";
+import NotFound from "../../errors/NotFound";
 import {
   Divider,
   Grid,
@@ -14,6 +13,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import agent from "../../app/api/agent";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -21,16 +21,16 @@ const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/products/${id}`)
-      .then((res) => setProduct(res.data))
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+    id &&
+      agent.Product.details(id)
+        .then((res) => setProduct(res))
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <Loading />;
 
-  if (!product) return <NotFound text="Product" />;
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6}>

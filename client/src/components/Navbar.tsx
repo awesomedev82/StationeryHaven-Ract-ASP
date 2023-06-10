@@ -14,8 +14,9 @@ import {
 import { NavLink } from "react-router-dom";
 import { links, registrationLink } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
-import { navStyles } from "../muiStyles/navStyle";
+import { navStyles, navStylesForLogo } from "../muiStyles/navStyle";
 import Sidebar from "./Sidebar";
+import { baseFlexStyles } from "../muiStyles/flexStyle";
 
 interface Props {
   darkMode: boolean;
@@ -43,10 +44,10 @@ const Navbar = ({ darkMode, handleChange, theme }: Props) => {
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ ...baseFlexStyles }}>
           <Typography
             variant="h5"
-            sx={{ ...navStyles, mr: 1 }}
+            sx={{ ...navStylesForLogo, mr: 1 }}
             component={NavLink}
             to="/"
           >
@@ -83,17 +84,17 @@ const Navbar = ({ darkMode, handleChange, theme }: Props) => {
               ))}
             </List> */}
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-                <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  sx={{ mr: 2 }}
-                >
-                  <Badge badgeContent="4" color="success">
-                    <ShoppingCart />
-                  </Badge>
-                </IconButton>
+            <Box sx={{ ...baseFlexStyles }}>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent="4" color="success">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
             </Box>
           </>
         )}

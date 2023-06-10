@@ -1,4 +1,4 @@
-export const navStyles = {
+const baseNavStyles = {
   color: "inherit",
   textDecoration: "none",
   typography: "p",
@@ -7,7 +7,16 @@ export const navStyles = {
   "&:hover": {
     color: "#444444",
   },
+};
+
+export const navStyles = {
+  ...baseNavStyles,
   "&.active": {
     color: "text.secondary",
   },
 };
+
+export const navStylesForLogo = {
+  ...baseNavStyles,
+};
+

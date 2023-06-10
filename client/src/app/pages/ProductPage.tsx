@@ -2,15 +2,15 @@ import { Product } from "../models/product";
 import ProductList from "../../components/product/ProductList";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
+import agent from "../api/agent";
 
 const ProductPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
+    agent.Product.list()
+      .then((products) => setProducts(products))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   }, []);
