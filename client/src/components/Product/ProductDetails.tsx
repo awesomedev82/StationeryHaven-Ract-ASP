@@ -28,7 +28,7 @@ const ProductDetails = () => {
         .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <Loading />;
+  if (loading) return <Loading message="Loading product..." />;
 
   if (!product) return <NotFound />;
 

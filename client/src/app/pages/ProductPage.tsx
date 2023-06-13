@@ -15,7 +15,7 @@ const ProductPage = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <Loading message="Loading products..." />;
 
   return (
     <>

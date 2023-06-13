@@ -19,7 +19,13 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <Card>
+    <Card
+      sx={{
+        "@media (max-width: 600px)": {
+          width: "80%",
+        },
+      }}
+    >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: green[700] }}>
@@ -35,10 +41,11 @@ const ProductCard = ({ product }: Props) => {
         sx={{
           width: "100%",
           height: 0,
-          paddingTop: "80%",
-          objectFit: "cover",
+          paddingTop: "100%",
+          objectFit: "contain",
           "@media (max-width: 600px)": {
-            paddingTop: "83%",
+            paddingTop: "100%",
+            backgroundSize: "100%",
           },
         }}
         image={product.imageUrl}
