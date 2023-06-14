@@ -17,6 +17,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { navStyles, navStylesForLogo } from "../muiStyles/navStyle";
 import Sidebar from "./Sidebar";
 import { baseFlexStyles } from "../muiStyles/flexStyle";
+import { ReactComponent as Icon } from "../images/result.svg";
 
 interface Props {
   darkMode: boolean;
@@ -25,7 +26,8 @@ interface Props {
 }
 
 const Navbar = ({ darkMode, handleChange, theme }: Props) => {
-  const backgroundColor = darkMode ? "#242323" : "#4eaa51";
+  const backgroundColor = darkMode ? "#242323" : "#ffffff";
+  const text = darkMode ? "#ffffff" : "#000000";
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
@@ -34,26 +36,49 @@ const Navbar = ({ darkMode, handleChange, theme }: Props) => {
       style={{
         background: backgroundColor,
         boxShadow: "none",
+        color: text,
+        height: "var(--navbar-height)",
       }}
       sx={{ mb: 4 }}
     >
       <Toolbar
         sx={{
-          display: "flex",
+          ...baseFlexStyles,
+          height: "100%",
           justifyContent: "space-between",
-          alignItems: "center",
         }}
       >
-        <Box sx={{ ...baseFlexStyles }}>
+        <Box
+          sx={{
+            ...baseFlexStyles,
+            height: "100%",
+            display: "flex",
+            gap: "8%",
+            marginLeft: "5%",
+          }}
+        >
           <Typography
             variant="h5"
-            sx={{ ...navStylesForLogo, mr: 1 }}
+            sx={{
+              ...navStylesForLogo,
+              ...baseFlexStyles,
+              height: "100%",
+              justifyContent: "center",
+            }}
             component={NavLink}
             to="/"
           >
-            Stationery Heaven
+            <Icon
+              height={180}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "165%",
+                marginBottom: "35%",
+                marginLeft: "5%",
+              }}
+            />
           </Typography>
-          {!isMatch && <Switch onChange={handleChange} />}
+          {/* {!isMatch && <Switch onChange={handleChange} />} */}
         </Box>
 
         {!isMatch && (
@@ -65,6 +90,7 @@ const Navbar = ({ darkMode, handleChange, theme }: Props) => {
                   component={NavLink}
                   to={path}
                   sx={navStyles}
+                  style={{ fontFamily: "Montserrat" }}
                 >
                   {title}
                 </ListItem>

@@ -27,26 +27,18 @@ const ProductCard = ({ product }: Props) => {
       }}
     >
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: green[700] }}>
-            {product.name.charAt(0).toUpperCase()}
-          </Avatar>
-        }
         title={product.name}
         titleTypographyProps={{
-          sx: { fontWeight: "bold" },
+          sx: { fontWeight: "bold", fontSize: "18px" },
         }}
+        sx={{ backgroundColor: "#c2d5ed44" }}
       />
       <CardMedia
         sx={{
           width: "100%",
           height: 0,
-          paddingTop: "100%",
-          objectFit: "contain",
-          "@media (max-width: 600px)": {
-            paddingTop: "100%",
-            backgroundSize: "100%",
-          },
+          paddingTop: "85%",
+          objectFit: "cover",
         }}
         image={product.imageUrl}
         title="product-image"
@@ -60,13 +52,15 @@ const ProductCard = ({ product }: Props) => {
         </Typography>
       </CardContent>
 
-      <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
+      <CardActions
+        style={{ display: "flex", justifyContent: "center", gap: "6%" }}
+      >
         <Button
           size="small"
           variant="contained"
           style={{
-            backgroundColor: "#f5f5dc",
-            color: "rgba(25, 25, 25, 0.67)",
+            backgroundColor: "#4e4e4d",
+            color: "rgb(245, 242, 242)",
           }}
           component={Link}
           to={`/product/${product.id}`}
@@ -76,10 +70,10 @@ const ProductCard = ({ product }: Props) => {
         <Button
           size="small"
           variant="contained"
-          style={{ backgroundColor: amber[700] }}
+          style={{ backgroundColor: green[700] }}
           endIcon={<ShoppingCartIcon />}
         >
-          Add to cart
+          Add
         </Button>
       </CardActions>
     </Card>

@@ -1,7 +1,7 @@
 
 const ContactPage = () => {
   return (
-    <div>
+    <div style={{minHeight: "100vh"}}>
       Contact
     </div>
   )

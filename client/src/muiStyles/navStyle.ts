@@ -2,7 +2,7 @@ const baseNavStyles = {
   color: "inherit",
   textDecoration: "none",
   typography: "p",
-  fontSize: "20px",
+  fontSize: "22px",
   textTransform: "capitalize",
   "&:hover": {
     color: "#444444",
@@ -12,7 +12,8 @@ const baseNavStyles = {
 export const navStyles = {
   ...baseNavStyles,
   "&.active": {
-    color: "text.secondary",
+    color: "#7b72a1",
+    textDecoration: "underline"
   },
 };
 

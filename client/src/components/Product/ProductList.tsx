@@ -13,7 +13,7 @@ const ProductList = ({ products }: Props) => {
         {products.map((product: Product) => (
           <Grid
             item
-            xs={12}
+            xs={13}
             sm={6}
             md={4}
             lg={3}

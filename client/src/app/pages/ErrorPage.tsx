@@ -21,7 +21,7 @@ const ErrorPage = () => {
   };
 
   return (
-    <Container>
+    <Container style={{minHeight: "100vh"}}>
       <Typography gutterBottom variant="h2">
         Errors for testing
       </Typography>

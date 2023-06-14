@@ -7,17 +7,22 @@ interface Props {
 
 const Loading = ({ message = "Loading..." }: Props) => {
   return (
-    <Backdrop open={true} invisible={true}>
-      <Box {...baseFlexStyles} justifyContent="center" height="100vh">
-        <CircularProgress size={80} color="secondary" />
-        <Typography
-          variant="h4"
-          sx={{ justifyContent: "center", position: "fixed", top: "60%" }}
-        >
-          {message}
-        </Typography>
-      </Box>
-    </Backdrop>
+    <Box
+      minHeight={`calc(100vh - var(--navbar-height) - var(--footer-height) - 5vh)`}
+    >
+      <Backdrop open={true} invisible={true}>
+        <Box {...baseFlexStyles} sx={{ marginBottom: "10%" }}>
+          <CircularProgress
+            size={70}
+            color="secondary"
+            sx={{ marginRight: "15px" }}
+          />
+          <Typography variant="h4" sx={{ marginTop: "20px" }}>
+            {message}
+          </Typography>
+        </Box>
+      </Backdrop>
+    </Box>
   );
 };
 

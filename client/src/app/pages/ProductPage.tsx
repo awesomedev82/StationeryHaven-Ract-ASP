@@ -3,6 +3,8 @@ import ProductList from "../../components/product/ProductList";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import agent from "../api/agent";
+import { BottomNavigation } from "@mui/material";
+import Footer from "../../components/Footer";
 
 const ProductPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
