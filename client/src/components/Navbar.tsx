@@ -39,7 +39,7 @@ const Navbar = ({ darkMode, handleChange, theme }: Props) => {
         color: text,
         height: "var(--navbar-height)",
       }}
-      sx={{ mb: 4 }}
+      sx={{ mb: 3 }}
     >
       <Toolbar
         sx={{

@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutPage = () => {
   return (
-    <div style={{minHeight: "100vh"}}>
+    <div style={{minHeight:`calc(100vh - var(--navbar-height) - var(--footer-height) - 5vh)`}}>
       About
     </div>
   )

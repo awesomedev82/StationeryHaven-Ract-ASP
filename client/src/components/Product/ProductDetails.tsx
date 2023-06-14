@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../app/models/product";
+import { Product } from "../../models/product";
 import Loading from "../Loading";
 import NotFound from "../../errors/NotFound";
 import {
@@ -13,7 +13,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import agent from "../../app/api/agent";
+import agent from "../../api/agent";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);

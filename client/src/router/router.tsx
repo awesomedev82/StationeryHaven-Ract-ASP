@@ -1,10 +1,10 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import App from "../app/layout/App";
-import ProductPage from "../app/pages/ProductPage";
+import App from "../layout/App";
+import ProductPage from "../pages/ProductPage";
 import ProductDetails from "../components/product/ProductDetails";
-import AboutPage from "../app/pages/AboutPage";
-import ContactPage from "../app/pages/ContactPage";
-import ErrorPage from "../app/pages/ErrorPage";
+import AboutPage from "../pages/AboutPage";
+import ContactPage from "../pages/ContactPage";
+import ErrorPage from "../pages/ErrorPage";
 import ServerError from "../errors/ServerError";
 import NotFound from "../errors/NotFound";
 

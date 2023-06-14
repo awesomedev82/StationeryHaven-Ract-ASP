@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Card,
   CardActions,
@@ -8,8 +7,8 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Product } from "../../app/models/product";
-import { amber, green } from "@mui/material/colors";
+import { Product } from "../../models/product";
+import { green } from "@mui/material/colors";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
@@ -29,7 +28,7 @@ const ProductCard = ({ product }: Props) => {
       <CardHeader
         title={product.name}
         titleTypographyProps={{
-          sx: { fontWeight: "bold", fontSize: "18px" },
+          sx: { fontSize: "20px", fontFamily: "Montserrat" },
         }}
         sx={{ backgroundColor: "#c2d5ed44" }}
       />

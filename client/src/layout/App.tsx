@@ -1,22 +1,25 @@
-import Navbar from "../../components/Navbar";
+import Navbar from "../components/Navbar";
 import {
+  Box,
   Container,
   CssBaseline,
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "../../components/Footer";
+import Footer from "../components/Footer";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [isProductsPage, setIsProductsPage] = useState(true);
+  const location = useLocation();
 
   const paletteType = darkMode ? "dark" : "light";
 
-  const theme = createTheme({ 
+  const theme = createTheme({
     palette: {
       mode: paletteType,
       background: {
@@ -29,6 +32,14 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsProductsPage(true);
+    } else {
+      setIsProductsPage(false);
+    }
+  }, [location]);
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -39,9 +50,19 @@ function App() {
         />
         <CssBaseline />
         <Navbar darkMode={darkMode} handleChange={handleChange} theme={theme} />
-        <Container>
-          <Outlet />
-        </Container>
+        {isProductsPage && (
+          <Container
+            disableGutters={true}
+            style={{ margin: 0, maxWidth: "100vw" }}
+          >
+            <Outlet />
+          </Container>
+        )}
+        {!isProductsPage && (
+          <Container>
+            <Outlet />
+          </Container>
+        )}
         <Footer />
       </ThemeProvider>
     </>
