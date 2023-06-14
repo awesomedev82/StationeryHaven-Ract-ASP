@@ -43,7 +43,7 @@ const Sidebar = () => {
               sx={{ textTransform: "capitalize" }}
             >
               <ListItemIcon>
-                <Icon />
+                <Icon style={{ color: "#326577c9" }} />
               </ListItemIcon>
               <ListItemText>{title}</ListItemText>
             </ListItemButton>

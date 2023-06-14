@@ -21,7 +21,7 @@ const ErrorPage = () => {
   };
 
   return (
-    <Container style={{minHeight:`calc(100vh - var(--navbar-height) - var(--footer-height) - 5vh)`}}>
+    <Container style={{minHeight:`calc(100vh - var(--navbar-height) - var(--footer-height) - 4vh)`}}>
       <Typography gutterBottom variant="h2">
         Errors for testing
       </Typography>

@@ -5,14 +5,13 @@ import {
   IconButton,
   List,
   ListItem,
-  Switch,
   Theme,
   Toolbar,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { links, registrationLink } from "../lib/constants";
+import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
 import { navStyles, navStylesForLogo } from "../muiStyles/navStyle";
 import Sidebar from "./Sidebar";
@@ -25,7 +24,7 @@ interface Props {
   theme: Theme;
 }
 
-const Navbar = ({ darkMode, handleChange, theme }: Props) => {
+const Navbar = ({ darkMode, theme }: Props) => {
   const backgroundColor = darkMode ? "#242323" : "#ffffff";
   const text = darkMode ? "#ffffff" : "#000000";
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));

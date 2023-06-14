@@ -3,8 +3,8 @@ import ProductList from "../components/product/ProductList";
 import { useState, useEffect } from "react";
 import Loading from "../components/Loading";
 import agent from "../api/agent";
-import img from "../images/colorful-stationery-multicolored-background_1623598949.jpg";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
+import Slider from "../components/Slider";
 
 const ProductPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,23 +16,6 @@ const ProductPage = () => {
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   }, []);
-
-  const Slider = () => {
-    return (
-      <Box>
-        <img
-          src={img}
-          style={{
-            width: "100%",
-            height: "35vh",
-            objectFit: "cover",
-            marginBottom: "3%",
-          }}
-          alt="slider"
-        />
-      </Box>
-    );
-  };
 
   if (loading) return <Loading message="Loading products..." />;
 
