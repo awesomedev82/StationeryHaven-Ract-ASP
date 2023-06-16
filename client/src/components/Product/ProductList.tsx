@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Product } from "../../models/product";
 import ProductCard from "./ProductCard";
 
@@ -7,9 +7,18 @@ interface Props {
 }
 
 const ProductList = ({ products }: Props) => {
+
   return (
     <>
-      <Grid container spacing={4} sx={{ mb: 4 }}>
+      <Grid container spacing={4} sx={{ mt: 4, mb: 4 }}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+        >
+          <h1 style={{ marginTop: "0", fontFamily: "Arial", fontSize: "28px" }}>All Products</h1>
+        </Box>
         {products.map((product: Product) => (
           <Grid
             item

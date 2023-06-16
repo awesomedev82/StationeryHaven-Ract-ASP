@@ -1,7 +1,8 @@
+import { minHeight } from "../muiStyles/helper/helper"
 
 const ContactPage = () => {
   return (
-    <div style={{minHeight:`calc(100vh - var(--navbar-height) - var(--footer-height) - 4vh)`}}>
+    <div style={minHeight}>
       Contact
     </div>
   )

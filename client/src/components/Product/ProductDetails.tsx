@@ -3,17 +3,10 @@ import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
 import Loading from "../Loading";
 import NotFound from "../../errors/NotFound";
-import {
-  Divider,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import agent from "../../api/agent";
+import { minHeightDetails } from "../../muiStyles/helper/helper";
+import ProductTable from "../Table";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -33,48 +26,35 @@ const ProductDetails = () => {
   if (!product) return <NotFound />;
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={6}>
+    <Grid container spacing={6} sx={{ minHeight: minHeightDetails, mt: 1 }}>
+      <Grid item xs={12} sm={6}>
         <img
           src={product.imageUrl}
           alt={product.name}
-          style={{ width: "100%" }}
+          style={{ width: "100%", maxHeight: "60vh" }}
         />
       </Grid>
 
-      <Grid item xs={6}>
-        <Typography variant="h3">{product.name}</Typography>
+      <Grid item xs={12} sm={6}>
+        <Typography variant="h3" sx={{ fontFamily: "Arial", fontSize: "26px" }}>
+          {product.name}
+        </Typography>
         <Divider sx={{ mb: 2 }} />
 
-        <TableContainer>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell sx={{ fontWeight: "600" }}>Name</TableCell>
-                <TableCell>{product.name}</TableCell>
-              </TableRow>
+        <ProductTable product={product} />
 
-              <TableRow>
-                <TableCell sx={{ fontWeight: "600" }}>Type</TableCell>
-                <TableCell>{product.type}</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell sx={{ fontWeight: "600" }}>Brand</TableCell>
-                <TableCell>{product.brand}</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell sx={{ fontWeight: "600" }}>
-                  Quantity in stock
-                </TableCell>
-                <TableCell>{product.quantityInStock}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Typography variant="h4" color="secondary" sx={{ marginTop: 3 }}>
+        <Typography
+          variant="h4"
+          color="secondary"
+          sx={{
+            marginTop: 3,
+            fontFamily: "Arial",
+            fontSize: "24px",
+          }}
+        >
+          <span style={{ color: "#3a3a3ae0", paddingRight: "1%" }}>
+            Price:{" "}
+          </span>
           ${(product.price / 100).toFixed(2)}
         </Typography>
       </Grid>

@@ -1,6 +1,6 @@
 import { Box, IconButton } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { images } from "../lib/constants";
 
 const Slider = () => {
@@ -19,7 +19,6 @@ const Slider = () => {
   };
 
   const currentImage = images[currentImageIndex];
-  console.log(currentImage);
 
   return (
     <Box position="relative">
@@ -28,8 +27,8 @@ const Slider = () => {
         style={{
           width: "100%",
           height: "35vh",
+          marginBottom: "2%",
           objectFit: "cover",
-          marginBottom: "3%",
           transition: "opacity 10s ease-in-out",
         }}
         alt="slider"

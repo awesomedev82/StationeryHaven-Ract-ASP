@@ -16,7 +16,7 @@ const Footer = () => {
       <Typography variant="body2" align="center" color="textSecondary">
         © {new Date().getFullYear()} Stationary Heaven. All rights reserved.
       </Typography>
-      <Box display="flex" justifyContent="center" mt={2}>
+      <Box display="flex" justifyContent="center" mt={1}>
         {links.map(({ title, path, icon: Icon }) => (
           <Link
             key={path}

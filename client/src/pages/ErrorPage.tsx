@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import agent from "../api/agent";
 import { useState } from "react";
+import { minHeight } from "../muiStyles/helper/helper";
 
 const ErrorPage = () => {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
@@ -21,7 +22,7 @@ const ErrorPage = () => {
   };
 
   return (
-    <Container style={{minHeight:`calc(100vh - var(--navbar-height) - var(--footer-height) - 4vh)`}}>
+    <Container style={minHeight} sx={{mt: 3}}>
       <Typography gutterBottom variant="h2">
         Errors for testing
       </Typography>

@@ -1,5 +1,6 @@
 import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { baseFlexStyles } from "../muiStyles/flexStyle";
+import { minHeightDetails } from "../muiStyles/helper/helper";
 
 interface Props {
   message?: string;
@@ -8,7 +9,7 @@ interface Props {
 const Loading = ({ message = "Loading..." }: Props) => {
   return (
     <Box
-      minHeight={`calc(100vh - var(--navbar-height) - var(--footer-height) - 5vh)`}
+      minHeight={`calc(${minHeightDetails.minHeight} + 1vh)`}
     >
       <Backdrop open={true} invisible={true}>
         <Box {...baseFlexStyles} sx={{ marginBottom: "10%" }}>
