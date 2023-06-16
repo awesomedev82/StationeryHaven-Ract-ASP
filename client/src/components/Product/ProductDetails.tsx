@@ -51,7 +51,7 @@ const ProductDetails = () => {
           variant="h4"
           color="secondary"
           sx={{
-            marginTop: 3,
+            mt: 3,
             fontFamily: "Arial",
             fontSize: "24px",
           }}

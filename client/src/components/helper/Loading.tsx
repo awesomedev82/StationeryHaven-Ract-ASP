@@ -12,13 +12,13 @@ const Loading = ({ message = "Loading..." }: Props) => {
       minHeight={minHeight}
     >
       <Backdrop open={true} invisible={true}>
-        <Box {...baseFlexStyles} sx={{ marginBottom: "10%" }}>
+        <Box {...baseFlexStyles} sx={{ mb: "10%" }}>
           <CircularProgress
             size={70}
             color="secondary"
-            sx={{ marginRight: "15px" }}
+            sx={{ mr: "15px" }}
           />
-          <Typography variant="h4" sx={{ marginTop: "20px" }}>
+          <Typography variant="h4" sx={{ mt: "20px" }}>
             {message}
           </Typography>
         </Box>
