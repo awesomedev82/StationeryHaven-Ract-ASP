@@ -1,7 +1,7 @@
 import { Box, IconButton } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import { useState } from "react";
-import { images } from "../lib/constants";
+import { images } from "../../lib/constants";
 
 const Slider = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

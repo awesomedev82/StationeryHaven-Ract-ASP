@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
 import {
   CssBaseline,
   ThemeProvider,
@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 import ContainerWithoutMargins from "./ContainerWithoutMargins";
 import ContainerWithMargins from "./ContainerWithMargins";
 

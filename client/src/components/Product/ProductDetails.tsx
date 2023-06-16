@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
-import Loading from "../Loading";
+import Loading from "../helper/Loading";
 import NotFound from "../../errors/NotFound";
 import { Divider, Grid, Typography } from "@mui/material";
 import agent from "../../api/agent";
-import { minHeightDetails } from "../../muiStyles/helper/helper";
-import ProductTable from "../Table";
+import { minHeight } from "../../muiStyles/helper/helper";
+import ProductTable from "../helper/Table";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -26,7 +26,11 @@ const ProductDetails = () => {
   if (!product) return <NotFound />;
 
   return (
-    <Grid container spacing={6} sx={{ minHeight: minHeightDetails, mt: 1 }}>
+    <Grid
+      container
+      spacing={6}
+      sx={{ minHeight: minHeight, pt: 1, mt: 0, mb: 0 }}
+    >
       <Grid item xs={12} sm={6}>
         <img
           src={product.imageUrl}

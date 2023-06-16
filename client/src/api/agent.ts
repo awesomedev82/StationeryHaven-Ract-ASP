@@ -5,6 +5,7 @@ import { router } from "../router/router";
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -71,6 +72,7 @@ const Basket = {
 const agent = {
   Product,
   TestErrors,
+  Basket
 };
 
 export default agent;

@@ -10,11 +10,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
 import { navStyles, navStylesForLogo } from "../muiStyles/navStyle";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/helper/Sidebar";
 import { baseFlexStyles } from "../muiStyles/flexStyle";
 import { ReactComponent as Icon } from "../images/result.svg";
 
@@ -110,6 +110,8 @@ const Navbar = ({ darkMode, theme }: Props) => {
 
             <Box sx={{ ...baseFlexStyles }}>
               <IconButton
+                component={Link}
+                to="/basket"
                 size="large"
                 edge="start"
                 color="inherit"

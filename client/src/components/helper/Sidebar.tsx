@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { links } from "../lib/constants";
-import { NavLink } from "react-router-dom";
+import { links } from "../../lib/constants";
+import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
-import { baseFlexStyles } from "../muiStyles/flexStyle";
+import { baseFlexStyles } from "../../muiStyles/flexStyle";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -52,8 +52,8 @@ const Sidebar = () => {
       </Drawer>
 
       <Box sx={{ ...baseFlexStyles, gap: "6%" }}>
-        <Badge badgeContent="4" color="success">
-          <ShoppingCart />
+        <Badge badgeContent="4" color="success" component={Link} to="/basket">
+          <ShoppingCart style={{color: "black"}}/>
         </Badge>
 
         <IconButton

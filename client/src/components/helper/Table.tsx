@@ -5,8 +5,8 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import { Product } from "../models/product";
-import { tableCell } from "../muiStyles/productDetails";
+import { Product } from "../../models/product";
+import { tableCell } from "../../muiStyles/productDetails";
 
 interface Props {
   product: Product;

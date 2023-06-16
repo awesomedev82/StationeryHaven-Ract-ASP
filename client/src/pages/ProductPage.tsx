@@ -1,11 +1,10 @@
 import { Product } from "../models/product";
 import ProductList from "../components/product/ProductList";
 import { useState, useEffect } from "react";
-import Loading from "../components/Loading";
+import Loading from "../components/helper/Loading";
 import agent from "../api/agent";
-import { Box, Container, Divider, Grid } from "@mui/material";
-import Slider from "../components/Slider";
-import ProductCard from "../components/product/ProductCard";
+import { Container, Divider } from "@mui/material";
+import Slider from "../components/helper/Slider";
 import ProductRandom from "../components/product/ProductRandom";
 
 const ProductPage = () => {
