@@ -1,7 +1,6 @@
 import {
   AppBar,
   Badge,
-  Box,
   IconButton,
   List,
   ListItem,
@@ -13,10 +12,10 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
-import { navStyles, navStylesForLogo } from "../muiStyles/navStyle";
+import { navStyles, navStylesForLogo } from "../muiStyles/navBar/navStyle";
 import Sidebar from "../components/helper/Sidebar";
-import { baseFlexStyles } from "../muiStyles/flexStyle";
 import { ReactComponent as Icon } from "../images/result.svg";
+import { StyledBox, StyledFlexBox } from "../muiStyles/navBar/navbar.styled";
 
 interface Props {
   darkMode: boolean;
@@ -41,25 +40,19 @@ const Navbar = ({ darkMode, theme }: Props) => {
     >
       <Toolbar
         sx={{
-          ...baseFlexStyles,
+          display: "flex",
+          alignItems: "center",
           height: "100%",
           justifyContent: "space-between",
         }}
       >
-        <Box
-          sx={{
-            ...baseFlexStyles,
-            height: "100%",
-            display: "flex",
-            gap: "8%",
-            marginLeft: "5%",
-          }}
-        >
+        <StyledBox>
           <Typography
             variant="h5"
             sx={{
               ...navStylesForLogo,
-              ...baseFlexStyles,
+              display: "flex",
+              alignItems: "center",
               height: "100%",
               justifyContent: "center",
             }}
@@ -76,8 +69,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
               }}
             />
           </Typography>
-          {/* {!isMatch && <Switch onChange={handleChange} />} */}
-        </Box>
+        </StyledBox>
 
         {!isMatch && (
           <>
@@ -95,20 +87,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
               ))}
             </List>
 
-            {/* <List sx={{ display: "flex" }}>
-              {registrationLink.map(({ title, path }) => (
-                <ListItem
-                  key={path}
-                  component={NavLink}
-                  to={path}
-                  sx={navStyles}
-                >
-                  {title}
-                </ListItem>
-              ))}
-            </List> */}
-
-            <Box sx={{ ...baseFlexStyles }}>
+            <StyledFlexBox>
               <IconButton
                 component={Link}
                 to="/basket"
@@ -121,7 +100,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
                   <ShoppingCart />
                 </Badge>
               </IconButton>
-            </Box>
+            </StyledFlexBox>
           </>
         )}
 

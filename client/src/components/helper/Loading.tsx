@@ -1,6 +1,6 @@
 import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
-import { baseFlexStyles } from "../../muiStyles/flexStyle";
 import { minHeight } from "../../muiStyles/helper/helper";
+import { StyledFlexBox } from "../../muiStyles/navBar/navbar.styled";
 
 interface Props {
   message?: string;
@@ -12,7 +12,7 @@ const Loading = ({ message = "Loading..." }: Props) => {
       minHeight={minHeight}
     >
       <Backdrop open={true} invisible={true}>
-        <Box {...baseFlexStyles} sx={{ mb: "10%" }}>
+        <StyledFlexBox sx={{ mb: "10%" }}>
           <CircularProgress
             size={70}
             color="secondary"
@@ -21,7 +21,7 @@ const Loading = ({ message = "Loading..." }: Props) => {
           <Typography variant="h4" sx={{ mt: "20px" }}>
             {message}
           </Typography>
-        </Box>
+        </StyledFlexBox>
       </Backdrop>
     </Box>
   );

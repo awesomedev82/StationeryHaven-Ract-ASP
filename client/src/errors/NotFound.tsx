@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import { baseFlexStyles } from "../muiStyles/flexStyle";
 import { minHeight } from "../muiStyles/helper/helper";
+import { StyledFlexBox } from "../muiStyles/navBar/navbar.styled";
 
 const NotFound = () => {
   return (
@@ -18,20 +18,30 @@ const NotFound = () => {
         ...minHeight,
         display: "flex",
         justifyContent: "center",
-        paddingTop: "5%",
+        paddingTop: "3%",
       }}
     >
-      <Container component={Paper} sx={{ height: "65vh", paddingTop: "7px" }}>
-        <Typography variant="h3" gutterBottom>
+      <Container
+        component={Paper}
+        maxWidth="sm"
+        sx={{
+          height: "auto",
+          maxHeight: "55vh",
+          padding: "1rem",
+          pb: "none",
+          "@media (max-width: 600px)": {
+            maxHeight: "65vh",
+          },
+        }}
+      >
+        <Typography variant="h3" gutterBottom style={{ marginBottom: "5px" }}>
           Oops - we could not find what you are looking for
         </Typography>
         <Divider />
-        <Box
+        <StyledFlexBox
           sx={{
-            ...baseFlexStyles,
             flexDirection: "column",
-            gap: "8vh",
-            mt: "8vh",
+            gap: "4vh",
           }}
         >
           <SentimentDissatisfiedIcon
@@ -46,7 +56,7 @@ const NotFound = () => {
           >
             Go back
           </Button>
-        </Box>
+        </StyledFlexBox>
       </Container>
     </Box>
   );

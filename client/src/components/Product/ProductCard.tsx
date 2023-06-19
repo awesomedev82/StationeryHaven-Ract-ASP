@@ -1,26 +1,21 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Button, CardActions, Divider, Box } from "@mui/material";
+import { Link as RouteLink } from "react-router-dom";
 import { Product } from "../../models/product";
-import { green } from "@mui/material/colors";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link } from "react-router-dom";
+import ProductPrice from "./productCard/ProductPrice";
 import { useState } from "react";
 import agent from "../../api/agent";
-import { LoadingButton } from "@mui/lab";
+import { CardStyle } from "../../muiStyles/product/product.styled";
+import ProductImage from "./productCard/ProductImage";
+import AddToBasketButton from "./productCard/AddToBasketButton";
+import ProductTitle from "./productCard/ProductTitle";
 
 interface Props {
   product: Product;
-  productRandom?: boolean;
 }
 
-const ProductCard = ({ product, productRandom }: Props) => {
+const ProductCard = ({ product }: Props) => {
+  const { name, price, imageUrl, quantityInStock } = product;
+
   const [loading, setLoading] = useState(false);
 
   const handleAddItem = (productId: number) => {
@@ -31,86 +26,45 @@ const ProductCard = ({ product, productRandom }: Props) => {
   };
 
   return (
-    <Card
-      sx={{
-        "@media (max-width: 600px)": {
-          width: "80%",
-        },
-      }}
-    >
-      <CardHeader
-        title={product.name}
-        titleTypographyProps={{
-          sx: { fontSize: "20px", fontFamily: "Montserrat" },
-        }}
-        sx={{ backgroundColor: "#c2d5ed44" }}
+    <CardStyle>
+      <ProductImage
+        imageUrl={imageUrl}
+        name={name}
+        quantityInStock={quantityInStock}
       />
-      {productRandom && (
-        <CardMedia
-          sx={{
-            width: "100%",
-            height: 0,
-            paddingTop: "80%",
-            objectFit: "cover",
-          }}
-          image={product.imageUrl}
-          title="product-image"
-          component={Link}
-          to={`/product/${product.id}`}
-        />
-      )}
-      {!productRandom && (
-        <CardMedia
-          sx={{
-            width: "100%",
-            height: 0,
-            paddingTop: "85%",
-            objectFit: "cover",
-          }}
-          image={product.imageUrl}
-          title="product-image"
-        />
-      )}
-      {!productRandom && (
-        <>
-          <CardContent>
-            <Typography gutterBottom variant="h5">
-              ${(product.price / 100).toFixed(2)}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {product.brand} / {product.type}
-            </Typography>
-          </CardContent>
 
-          <CardActions
-            style={{ display: "flex", justifyContent: "center", gap: "6%" }}
+      <Box sx={{ py: 2, px: 3 }}>
+        <ProductTitle name={name} productLink={`/product/${product.id}`} />
+
+        <Box
+          sx={{
+            mt: 2,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <ProductPrice price={price} />
+          <Button
+            size="small"
+            style={{
+              color: "rgb(102, 101, 101)",
+            }}
+            component={RouteLink}
+            to={`/product/${product.id}`}
           >
-            <Button
-              size="small"
-              variant="contained"
-              style={{
-                backgroundColor: "#4e4e4d",
-                color: "rgb(245, 242, 242)",
-              }}
-              component={Link}
-              to={`/product/${product.id}`}
-            >
-              View
-            </Button>
-            <LoadingButton
-              loading={loading}
-              onClick={() => handleAddItem(product.id)}
-              size="small"
-              variant="contained"
-              style={{ backgroundColor: green[700] }}
-              endIcon={<ShoppingCartIcon />}
-            >
-              Add
-            </LoadingButton>
-          </CardActions>
-        </>
-      )}
-    </Card>
+            View
+          </Button>
+        </Box>
+        <Divider />
+      </Box>
+      <CardActions style={{ display: "flex", justifyContent: "center" }}>
+        <AddToBasketButton
+          loading={loading}
+          handleAddItem={() => handleAddItem(product.id)}
+        />
+      </CardActions>
+    </CardStyle>
   );
 };
 

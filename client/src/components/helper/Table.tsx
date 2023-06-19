@@ -6,7 +6,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { Product } from "../../models/product";
-import { tableCell } from "../../muiStyles/productDetails";
+import { StyledTableCell } from "../../muiStyles/helper/tableCell.styled";
 
 interface Props {
   product: Product;
@@ -18,23 +18,23 @@ const ProductTable = ({ product }: Props) => {
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell sx={tableCell}>Name</TableCell>
-            <TableCell sx={tableCell}>{product.name}</TableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>{product.name}</StyledTableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell sx={tableCell}>Type</TableCell>
-            <TableCell sx={tableCell}>{product.type}</TableCell>
+            <StyledTableCell>Type</StyledTableCell>
+            <StyledTableCell>{product.type}</StyledTableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell sx={tableCell}>Brand</TableCell>
-            <TableCell sx={tableCell}>{product.brand}</TableCell>
+            <StyledTableCell>Brand</StyledTableCell>
+            <StyledTableCell>{product.brand}</StyledTableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell sx={tableCell}>Quantity in stock</TableCell>
-            <TableCell sx={tableCell}>{product.quantityInStock}</TableCell>
+            <StyledTableCell>Quantity in stock</StyledTableCell>
+            <StyledTableCell>{product.quantityInStock}</StyledTableCell>
           </TableRow>
         </TableBody>
       </Table>

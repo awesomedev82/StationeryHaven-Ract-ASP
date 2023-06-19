@@ -3,9 +3,8 @@ import ProductList from "../components/product/ProductList";
 import { useState, useEffect } from "react";
 import Loading from "../components/helper/Loading";
 import agent from "../api/agent";
-import { Container, Divider } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import Slider from "../components/helper/Slider";
-import ProductRandom from "../components/product/ProductRandom";
 
 const ProductPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,12 +23,13 @@ const ProductPage = () => {
     <>
       <Slider />
 
-      <Container style={{ maxWidth: "1200px" }}>
-      <ProductRandom products={products} />
-      </Container>
-      <Divider sx={{ paddingTop: "5%" }} />
-
       <Container style={{ maxWidth: "1350px" }}>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item marginTop="1vh">
+            <Typography variant="h5">All Products:</Typography>
+          </Grid>
+        </Grid>
+
         <ProductList products={products} />
       </Container>
     </>
