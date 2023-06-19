@@ -1,19 +1,37 @@
 import Navbar from "./Navbar";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./Footer";
 import ContainerWithoutMargins from "./ContainerWithoutMargins";
 import ContainerWithMargins from "./ContainerWithMargins";
+import { useStoreContext } from "../context/Context";
+import { getCookie } from "../util/util";
+import agent from "../api/agent";
+import Loading from "../components/helper/Loading";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const { setBasket } = useStoreContext();
+
+  useEffect(() => {
+    const buyerId = getCookie("buyerId");
+
+    if (buyerId) {
+      agent.Basket.get()
+        .then((basket) => setBasket(basket))
+        .catch((e) => console.log(e))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [setBasket]);
 
   const paletteType = darkMode ? "dark" : "light";
-
   const theme = createTheme({
     palette: {
       mode: paletteType,
@@ -29,6 +47,8 @@ function App() {
   const handleChange = () => {
     setDarkMode(!darkMode);
   };
+
+  if (loading) return <Loading message="Loading basket..." />;
 
   return (
     <>

@@ -13,8 +13,15 @@ import { links } from "../../lib/constants";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
+import { useStoreContext } from "../../context/Context";
 
 const Sidebar = () => {
+  const { basket } = useStoreContext();
+
+  const itemCount = basket?.items.reduce((a, b) => {
+    return a + b.quantity;
+  }, 0);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLinkClick = () => {
@@ -50,9 +57,16 @@ const Sidebar = () => {
         </List>
       </Drawer>
 
-      <StyledFlexBox sx={{ gap: "6%" }}>
-        <Badge badgeContent="4" color="success" component={Link} to="/basket">
-          <ShoppingCart style={{color: "black"}}/>
+      <StyledFlexBox
+        sx={{ gap: "6%", position: "fixed", zIndex: 100, right: 0 }}
+      >
+        <Badge
+          badgeContent={itemCount}
+          color="success"
+          component={Link}
+          to="/basket"
+        >
+          <ShoppingCart style={{ color: "black" }} />
         </Badge>
 
         <IconButton

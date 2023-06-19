@@ -16,6 +16,7 @@ import { navStyles, navStylesForLogo } from "../muiStyles/navbar/navStyle";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
 import { StyledBox, StyledFlexBox } from "../muiStyles/navbar/navbar.styled";
+import { useStoreContext } from "../context/Context";
 
 interface Props {
   darkMode: boolean;
@@ -27,6 +28,11 @@ const Navbar = ({ darkMode, theme }: Props) => {
   const backgroundColor = darkMode ? "#242323" : "#ffffff";
   const text = darkMode ? "#ffffff" : "#000000";
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
+  const { basket } = useStoreContext();
+  const itemCount = basket?.items.reduce((a, b) => {
+    return a + b.quantity;
+  }, 0);
 
   return (
     <AppBar
@@ -55,6 +61,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
               alignItems: "center",
               height: "100%",
               justifyContent: "center",
+              marginLeft: 0
             }}
             component={NavLink}
             to="/"
@@ -65,7 +72,6 @@ const Navbar = ({ darkMode, theme }: Props) => {
                 maxWidth: "100%",
                 maxHeight: "165%",
                 marginBottom: "35%",
-                marginLeft: "5%",
               }}
             />
           </Typography>
@@ -96,7 +102,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
                 color="inherit"
                 sx={{ mr: 2 }}
               >
-                <Badge badgeContent="4" color="success">
+                <Badge badgeContent={itemCount} color="success">
                   <ShoppingCart />
                 </Badge>
               </IconButton>

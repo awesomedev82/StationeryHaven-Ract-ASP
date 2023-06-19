@@ -8,6 +8,7 @@ import { CardStyle } from "../../muiStyles/product/product.styled";
 import ProductImage from "./productCard/ProductImage";
 import AddToBasketButton from "./productCard/AddToBasketButton";
 import ProductTitle from "./productCard/ProductTitle";
+import { useStoreContext } from "../../context/Context";
 
 interface Props {
   product: Product;
@@ -15,12 +16,14 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const { name, price, imageUrl, quantityInStock } = product;
+  const { setBasket } = useStoreContext();
 
   const [loading, setLoading] = useState(false);
 
   const handleAddItem = (productId: number) => {
     setLoading(true);
     agent.Basket.addItem(productId)
+      .then((basket) => setBasket(basket))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   };
