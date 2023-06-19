@@ -12,10 +12,10 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
-import { navStyles, navStylesForLogo } from "../muiStyles/navBar/navStyle";
+import { navStyles, navStylesForLogo } from "../muiStyles/navbar/navStyle";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
-import { StyledBox, StyledFlexBox } from "../muiStyles/navBar/navbar.styled";
+import { StyledBox, StyledFlexBox } from "../muiStyles/navbar/navbar.styled";
 
 interface Props {
   darkMode: boolean;

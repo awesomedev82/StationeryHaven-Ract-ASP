@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableRow,
 } from "@mui/material";

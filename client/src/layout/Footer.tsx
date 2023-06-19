@@ -2,7 +2,7 @@ import { Box, Link, Typography } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import { links } from "../lib/constants";
 import { useEffect } from "react";
-import { footerLinksStyles, footerStyles } from "../muiStyles/footerStyle";
+import { StyledBox, footerLinksStyles } from "../muiStyles/footer.styled";
 
 const Footer = () => {
   const location = useLocation();
@@ -12,7 +12,7 @@ const Footer = () => {
   }, [location]);
 
   return (
-    <Box sx={ footerStyles }>
+    <StyledBox>
       <Typography variant="body2" align="center" color="textSecondary">
         © {new Date().getFullYear()} Stationary Heaven. All rights reserved.
       </Typography>
@@ -23,14 +23,14 @@ const Footer = () => {
             component={NavLink}
             to={path}
             variant="body2"
-            sx={ footerLinksStyles }
+            sx={footerLinksStyles}
           >
             {<Icon sx={{ marginRight: 0.5, color: "#326577c9" }} />}
             {title}
           </Link>
         ))}
       </Box>
-    </Box>
+    </StyledBox>
   );
 };
 

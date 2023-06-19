@@ -1,6 +1,5 @@
 import {
   Badge,
-  Box,
   Drawer,
   IconButton,
   List,
@@ -13,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { links } from "../../lib/constants";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
-import { StyledFlexBox } from "../../muiStyles/navBar/navbar.styled";
+import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

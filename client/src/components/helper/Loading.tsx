@@ -1,6 +1,6 @@
 import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { minHeight } from "../../muiStyles/helper/helper";
-import { StyledFlexBox } from "../../muiStyles/navBar/navbar.styled";
+import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
 
 interface Props {
   message?: string;

@@ -1,9 +1,5 @@
 import Navbar from "./Navbar";
-import {
-  CssBaseline,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -21,6 +17,9 @@ function App() {
   const theme = createTheme({
     palette: {
       mode: paletteType,
+      success: {
+        main: "rgb(1, 161, 81)",
+      },
       background: {
         default: paletteType === "light" ? "#eaeaea" : "#121212",
       },

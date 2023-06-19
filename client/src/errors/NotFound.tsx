@@ -1,65 +1,59 @@
-import {
-  Typography,
-  Button,
-  Container,
-  Paper,
-  Divider,
-  Box,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import { Typography, Button } from "@mui/material";
+import { Box } from "@mui/system";
+import { styled } from "@mui/material/styles";
+import { Link as RouterLink } from "react-router-dom";
+import image from "../images/3814346.png";
 import { minHeight } from "../muiStyles/helper/helper";
-import { StyledFlexBox } from "../muiStyles/navBar/navbar.styled";
 
-const NotFound = () => {
+const BoxStyle = styled(Box)(({ theme }) => ({
+  maxWidth: theme.breakpoints.values.sm,
+  ...minHeight,
+  margin: "0 auto",
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+
+  "& h4": {
+    paddingTop: "4vh",
+    marginBottom: "2vh",
+  },
+
+  "& img": {
+    width: "100%",
+    maxWidth: 400,
+    objectFit: "cover",
+  },
+  "& .MuiButton-root": {
+    backgroundColor: "#198416cd",
+    color: "#fff",
+    marginTop: 20,
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    "& .MuiTypography-h3": { fontSize: 30, fontWeight: 500 },
+  },
+}));
+
+const ErrorPage = () => {
   return (
-    <Box
-      sx={{
-        ...minHeight,
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: "3%",
-      }}
-    >
-      <Container
-        component={Paper}
-        maxWidth="sm"
-        sx={{
-          height: "auto",
-          maxHeight: "55vh",
-          padding: "1rem",
-          pb: "none",
-          "@media (max-width: 600px)": {
-            maxHeight: "65vh",
-          },
-        }}
-      >
-        <Typography variant="h3" gutterBottom style={{ marginBottom: "5px" }}>
-          Oops - we could not find what you are looking for
-        </Typography>
-        <Divider />
-        <StyledFlexBox
-          sx={{
-            flexDirection: "column",
-            gap: "4vh",
-          }}
+    <>
+      <BoxStyle>
+        <Typography variant="h4">Sorry, page not found!</Typography>
+        <img src={image} alt="404 Error" loading="lazy" />
+        <Button
+          to="/"
+          variant="contained"
+          component={RouterLink}
+          size="large"
+          disableElevation
         >
-          <SentimentDissatisfiedIcon
-            sx={{ fontSize: "10rem", color: "#db3838e6" }}
-          />
-          <Button
-            variant="contained"
-            component={Link}
-            to="/"
-            sx={{ width: "15vw" }}
-            color="success"
-          >
-            Go back
-          </Button>
-        </StyledFlexBox>
-      </Container>
-    </Box>
+          Go to Home
+        </Button>
+      </BoxStyle>
+    </>
   );
 };
 
-export default NotFound;
+export default ErrorPage;

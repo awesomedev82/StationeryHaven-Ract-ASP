@@ -13,7 +13,7 @@ const AddToBasketButton = ({ loading, handleAddItem }: Props) => (
     onClick={handleAddItem}
     size="small"
     variant="contained"
-    style={{ backgroundColor: green[700] }}
+    color="success"
     endIcon={<ShoppingCartIcon />}
   >
     Add to Basket
