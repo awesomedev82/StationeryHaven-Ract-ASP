@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, styled } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import { useState } from "react";
 import { images } from "../../lib/constants";
@@ -20,20 +20,50 @@ const Slider = () => {
 
   const currentImage = images[currentImageIndex];
 
+  const BoxAbsolute = styled(Box)(({ theme }) => ({
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 1,
+  }));
+
   return (
     <Box position="relative">
       <img
         src={currentImage}
         style={{
           width: "100%",
-          height: "35vh",
-          marginBottom: "2%",
+          height: "37vh",
           objectFit: "cover",
           transition: "opacity 10s ease-in-out",
         }}
         alt="slider"
       />
-
+      <BoxAbsolute
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        <BoxAbsolute
+          style={{
+            width: "40vw",
+            height: "15vh",
+            background: "rgba(255, 255, 255, 0.295)",
+          }}
+        ></BoxAbsolute>
+        <p
+          style={{
+            color: "white",
+            textTransform: "uppercase",
+            fontSize: "30px",
+            fontFamily: "Monserat",
+          }}
+        >
+          Stationery Heaven
+        </p>
+      </BoxAbsolute>
       <IconButton
         onClick={handlePreviousImage}
         style={{

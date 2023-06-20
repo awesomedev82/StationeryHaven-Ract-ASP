@@ -17,8 +17,12 @@ export const BoxStyle = styled(Box)(({ theme }) => ({
     objectFit: "cover",
   },
   "& .MuiButton-root": {
-    backgroundColor: "#198416cd",
+    backgroundColor: "rgb(1, 161, 81)",
     color: "#fff",
     marginTop: 20,
+    transition: "background-color 0.3s ease",
+    "&:hover": {
+      backgroundColor: "#167312cd",
+    },
   },
 }));

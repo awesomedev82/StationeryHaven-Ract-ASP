@@ -9,7 +9,6 @@ const AppWithMargins = ({ children }: Props) => {
   return (
     <Container
       style={{
-        margin: 0,
         maxWidth: "100vw",
         backgroundImage: `url(${img})`,
         backgroundSize: "cover",

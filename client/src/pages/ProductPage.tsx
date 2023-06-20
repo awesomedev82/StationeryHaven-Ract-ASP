@@ -26,7 +26,12 @@ const ProductPage = () => {
       <Container style={{ maxWidth: "1350px" }}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item marginTop="1vh">
-            <Typography variant="h5" sx={{fontFamily: "Montserrat", fontSize: 30}}>All Products:</Typography>
+            <Typography
+              variant="h5"
+              sx={{ fontFamily: "Montserrat", fontSize: 30, paddingTop: "13%" }}
+            >
+              All Products:
+            </Typography>
           </Grid>
         </Grid>
 

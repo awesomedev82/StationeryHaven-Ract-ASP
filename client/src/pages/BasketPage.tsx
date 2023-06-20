@@ -1,4 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  ListItemIcon,
+  Typography,
+} from "@mui/material";
 import { minHeight } from "../muiStyles/helper/helper";
 import { useStoreContext } from "../context/Context";
 import { Link as RouterLink } from "react-router-dom";
@@ -7,6 +13,7 @@ import BasketTable from "../components/helper/BasketTable";
 import { BoxStyle } from "../muiStyles/basket.styled";
 import { useState } from "react";
 import agent from "../api/agent";
+import ShoppingBagIcon from "../images/shopping-bag.png";
 
 const BasketPage = () => {
   const { basket, setBasket, removeItem } = useStoreContext();
@@ -46,14 +53,26 @@ const BasketPage = () => {
     );
 
   return (
-    <Box minHeight={minHeight} sx={{ pt: "4vh" }}>
-      <BasketTable
-        items={basket.items}
-        addItem={handleIncrement}
-        removeItem={handleDecrement}
-        status={status}
-      />
-    </Box>
+    <Container>
+      <Box minHeight={minHeight}>
+        <Typography gutterBottom variant="h2">
+          Your Basket
+          <ListItemIcon>
+            <img
+              src={ShoppingBagIcon}
+              alt="Shopping Bag"
+              style={{ marginLeft: 10, height: "7vh" }}
+            />
+          </ListItemIcon>
+        </Typography>
+        <BasketTable
+          items={basket.items}
+          addItem={handleIncrement}
+          removeItem={handleDecrement}
+          status={status}
+        />
+      </Box>
+    </Container>
   );
 };
 

@@ -1,11 +1,8 @@
-import { minHeight } from "../muiStyles/helper/helper"
+import { Container } from "@mui/material";
+import { minHeight } from "../muiStyles/helper/helper";
 
-const ContactPage = () => {
-  return (
-    <div style={minHeight}>
-      Contact
-    </div>
-  )
-}
+const AboutPage = () => {
+  return <Container style={{ ...minHeight }}>Contact</Container>;
+};
 
-export default ContactPage
+export default AboutPage;

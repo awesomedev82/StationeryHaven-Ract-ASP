@@ -1,11 +1,8 @@
-import { minHeight } from '../muiStyles/helper/helper'
+import { Container } from "@mui/material";
+import { minHeight } from "../muiStyles/helper/helper";
 
 const AboutPage = () => {
-  return (
-    <div style={minHeight}>
-      About
-    </div>
-  )
-}
+  return <Container style={{ ...minHeight }}>About</Container>;
+};
 
-export default AboutPage
+export default AboutPage;
