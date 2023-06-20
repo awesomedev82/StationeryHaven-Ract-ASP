@@ -1,6 +1,5 @@
 import {
   Box,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -16,17 +15,12 @@ import { LoadingButton } from "@mui/lab";
 
 interface Props {
   items: BasketItem[];
-  addItem: (productId: number) => void;
-  removeItem: any;
-  loading: boolean;
+  addItem: (productId: number, name: string) => void;
+  removeItem: (productId: number, quantity: number, name: string) => void;
+  status: any;
 }
 
-const BasketTable = ({
-  items,
-  addItem,
-  removeItem,
-  loading,
-}: Props) => {
+const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
@@ -63,16 +57,20 @@ const BasketTable = ({
               <TableCell align="center">
                 <LoadingButton
                   color="primary"
-                  onClick={() => removeItem(item.productId)}
-                  loading={loading}
+                  onClick={() => removeItem(item.productId, 1, "rem" + item.productId)}
+                  loading={
+                    status.loading && status.name === "rem" + item.productId
+                  }
                 >
                   <Remove />
                 </LoadingButton>
                 <span>{item.quantity}</span>
                 <LoadingButton
                   color="primary"
-                  onClick={() => addItem(item.productId)}
-                  loading={loading}
+                  onClick={() => addItem(item.productId, "add" + item.productId)}
+                  loading={
+                    status.loading && status.name === "add" + item.productId
+                  }
                 >
                   <Add />
                 </LoadingButton>
@@ -84,8 +82,10 @@ const BasketTable = ({
               <TableCell align="right">
                 <LoadingButton
                   color="error"
-                  onClick={() => removeItem(item.productId, item.quantity)}
-                  loading={loading}
+                  onClick={() => removeItem(item.productId, item.quantity, "del" + item.productId)}
+                  loading={
+                    status.loading && status.name === "del" + item.productId
+                  }
                 >
                   <Delete />
                 </LoadingButton>

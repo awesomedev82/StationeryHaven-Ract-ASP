@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
 import Loading from "../helper/Loading";
-import NotFound from "../../errors/NotFound";
+import NotFound from "../../pages/NotFound";
 import { Divider, Grid, Typography } from "@mui/material";
 import agent from "../../api/agent";
 import { minHeight } from "../../muiStyles/helper/helper";

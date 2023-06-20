@@ -103,7 +103,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
                 sx={{ mr: 2 }}
               >
                 <Badge badgeContent={itemCount} color="success">
-                  <ShoppingCart />
+                  <ShoppingCart style={{color: "#1281a0"}}/>
                 </Badge>
               </IconButton>
             </StyledFlexBox>

@@ -57,16 +57,14 @@ const Sidebar = () => {
         </List>
       </Drawer>
 
-      <StyledFlexBox
-        sx={{ gap: "6%" }}
-      >
+      <StyledFlexBox sx={{ gap: "6%" }}>
         <Badge
           badgeContent={itemCount}
           color="success"
           component={Link}
           to="/basket"
         >
-          <ShoppingCart style={{ color: "black" }} />
+          <ShoppingCart style={{ color: "#1281a0" }} />
         </Badge>
 
         <IconButton

@@ -1,4 +1,4 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { minHeight } from "../muiStyles/helper/helper";
 import { useStoreContext } from "../context/Context";
 import { Link as RouterLink } from "react-router-dom";
@@ -10,25 +10,24 @@ import agent from "../api/agent";
 
 const BasketPage = () => {
   const { basket, setBasket, removeItem } = useStoreContext();
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ loading: false, name: "" });
 
-  const handleIncrement = (productId: number) => {
-    setLoading(true);
+  const handleIncrement = (productId: number, name: string) => {
+    setStatus({ loading: true, name: name });
     agent.Basket.addItem(productId)
       .then((basket) => setBasket(basket))
       .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+      .finally(() => setStatus({ loading: false, name: "" }));
   };
 
-  const handleDecrement = (productId: number, quantity = 1) => {
-    setLoading(true);
+  const handleDecrement = (productId: number, quantity = 1, name: string) => {
+    setStatus({ loading: true, name: name });
     agent.Basket.removeItem(productId, quantity)
       .then(() => removeItem(productId, quantity))
       .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+      .finally(() => setStatus({ loading: false, name: "" }));
   };
 
-  
   if (!basket || !basket.items.length)
     return (
       <BoxStyle>
@@ -52,7 +51,7 @@ const BasketPage = () => {
         items={basket.items}
         addItem={handleIncrement}
         removeItem={handleDecrement}
-        loading={loading}
+        status={status}
       />
     </Box>
   );
