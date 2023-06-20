@@ -58,7 +58,7 @@ const Sidebar = () => {
       </Drawer>
 
       <StyledFlexBox
-        sx={{ gap: "6%", position: "fixed", zIndex: 100, right: 0 }}
+        sx={{ gap: "6%" }}
       >
         <Badge
           badgeContent={itemCount}

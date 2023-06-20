@@ -40,11 +40,11 @@ const ProductCard = ({ product }: Props) => {
         <ProductTitle name={name} productLink={`/product/${product.id}`} />
 
         <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
           sx={{
             mt: 2,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
           }}
         >
           <ProductPrice price={price} />

@@ -36,12 +36,12 @@ const Navbar = ({ darkMode, theme }: Props) => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       style={{
         background: backgroundColor,
-        boxShadow: "none",
         color: text,
         height: "var(--navbar-height)",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
       }}
     >
       <Toolbar
@@ -70,7 +70,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
               height={180}
               style={{
                 maxWidth: "100%",
-                maxHeight: "165%",
+                maxHeight: "160%",
                 marginBottom: "35%",
               }}
             />
