@@ -12,7 +12,7 @@ const Footer = () => {
   }, [location]);
 
   return (
-    <StyledBox>
+    <StyledBox style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)" }}>
       <Typography variant="body2" align="center" color="textSecondary">
         © {new Date().getFullYear()} Stationary Heaven. All rights reserved.
       </Typography>

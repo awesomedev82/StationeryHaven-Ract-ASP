@@ -14,7 +14,7 @@ import Loading from "../components/helper/Loading";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const { setBasket } = useStoreContext();
 
@@ -22,6 +22,7 @@ function App() {
     const buyerId = getCookie("buyerId");
 
     if (buyerId) {
+      setLoading(true);
       agent.Basket.get()
         .then((basket) => setBasket(basket))
         .catch((e) => console.log(e))
@@ -39,7 +40,7 @@ function App() {
         main: "rgb(1, 161, 81)",
       },
       background: {
-        default: paletteType === "light" ? "#eaeaea" : "#121212",
+        default: paletteType === "light" ? "#dfdede6e" : "#121212",
       },
     },
   });
@@ -48,7 +49,8 @@ function App() {
     setDarkMode(!darkMode);
   };
 
-  if (loading) return <Loading message="Loading basket..." />;
+  if (loading && location.pathname === "/basket")
+    return <Loading message="Loading basket..." />;
 
   return (
     <>

@@ -29,13 +29,19 @@ const ProductDetails = () => {
     <Grid
       container
       spacing={6}
-      sx={{ minHeight: minHeight, pt: 1, mt: 0, mb: 0 }}
+      sx={{ minHeight: minHeight, pt: 1, mt: 0, mb: 0, px: "10%" }}
     >
       <Grid item xs={12} sm={6}>
         <img
           src={product.imageUrl}
           alt={product.name}
-          style={{ width: "100%", maxHeight: "60vh" }}
+          style={{
+            width: "100%",
+            maxHeight: "60vh",
+            boxShadow: `0px 0px 4px rgba(145, 158, 171, 0.24), 0px 4px 8px -4px rgba(145, 158, 171, 0.24)`,
+            borderRadius: "1%",
+            objectFit: "cover"
+          }}
         />
       </Grid>
 
@@ -54,6 +60,7 @@ const ProductDetails = () => {
             mt: 3,
             fontFamily: "Arial",
             fontSize: "24px",
+            paddingBottom: "5%"
           }}
         >
           <span style={{ color: "#3a3a3ae0", paddingRight: "1%" }}>
