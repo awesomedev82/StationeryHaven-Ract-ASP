@@ -1,9 +1,7 @@
 import { Box, styled } from "@mui/material";
-import { minHeight } from "./helper/helper";
 
 export const BoxStyle = styled(Box)(({ theme }) => ({
   maxWidth: theme.breakpoints.values.sm,
-  ...minHeight,
   margin: "0 auto",
   textAlign: "center",
   display: "flex",

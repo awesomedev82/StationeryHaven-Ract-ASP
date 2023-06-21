@@ -3,14 +3,12 @@ import {
   AlertTitle,
   Button,
   ButtonGroup,
-  Container,
   List,
   ListItem,
   Typography,
 } from "@mui/material";
 import agent from "../api/agent";
 import { useState } from "react";
-import { minHeight } from "../muiStyles/helper/helper";
 
 const ErrorPage = () => {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
@@ -22,7 +20,7 @@ const ErrorPage = () => {
   };
 
   return (
-    <Container style={minHeight} sx={{pt: 3}}>
+    <>
       <Typography gutterBottom variant="h2">
         Errors for testing
       </Typography>
@@ -65,7 +63,7 @@ const ErrorPage = () => {
           </List>
         </Alert>
       )}
-    </Container>
+    </>
   );
 };
 

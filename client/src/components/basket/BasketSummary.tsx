@@ -32,7 +32,7 @@ const BasketSummary = ({ subtotal, deliveryFee }: Props) => {
       <TableContainer
         component={Paper}
         variant={"outlined"}
-        style={{ maxWidth: "30rem", marginBottom: "4%" }}
+        style={{ maxWidth: "30rem", marginBottom: "1%" }}
       >
         <Table>
           <TableBody>

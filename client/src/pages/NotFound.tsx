@@ -3,11 +3,9 @@ import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../images/3814346.png";
-import { minHeight } from "../muiStyles/helper/helper";
 
 const BoxStyle = styled(Box)(({ theme }) => ({
   maxWidth: theme.breakpoints.values.sm,
-  ...minHeight,
   margin: "0 auto",
   textAlign: "center",
   display: "flex",
@@ -16,7 +14,7 @@ const BoxStyle = styled(Box)(({ theme }) => ({
   alignItems: "center",
 
   "& h4": {
-    paddingTop: "4vh",
+    paddingTop: "1vh",
     marginBottom: "2vh",
   },
 

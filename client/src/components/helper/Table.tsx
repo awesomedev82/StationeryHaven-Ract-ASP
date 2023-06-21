@@ -3,6 +3,7 @@ import {
   TableBody,
   TableContainer,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { Product } from "../../models/product";
 import { StyledTableCell } from "../../muiStyles/helper/tableCell.styled";
@@ -37,6 +38,23 @@ const ProductTable = ({ product }: Props) => {
           </TableRow>
         </TableBody>
       </Table>
+
+      <Typography
+          variant="h4"
+          color="green"
+          sx={{
+            mt: 2,
+            fontFamily: "Arial",
+            fontSize: "24px",
+            pb: "2%",
+            pl: "3%",
+          }}
+        >
+          <span style={{ color: "#2f2e2edf", paddingRight: "1%" }}>
+            Price:{" "}
+          </span>
+          ${(product.price / 100).toFixed(2)}
+        </Typography>
     </TableContainer>
   );
 };

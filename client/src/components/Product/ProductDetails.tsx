@@ -3,34 +3,61 @@ import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
 import Loading from "../helper/Loading";
 import NotFound from "../../pages/NotFound";
-import { Divider, Grid, Typography } from "@mui/material";
+import { Divider, Grid, TextField, Typography } from "@mui/material";
 import agent from "../../api/agent";
-import { minHeight } from "../../muiStyles/helper/helper";
 import ProductTable from "../helper/Table";
+import { useStoreContext } from "../../context/Context";
+import { LoadingButton } from "@mui/lab";
 
 const ProductDetails = () => {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const { id } = useParams<{ id: string }>();
+  const { basket, setBasket, removeItem } = useStoreContext();
+
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+
+  const item = basket?.items.find((i) => i.productId === product?.id);
 
   useEffect(() => {
+    if (item) setQuantity(item.quantity);
     id &&
       agent.Product.details(id)
         .then((res) => setProduct(res))
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, item]);
 
   if (loading) return <Loading message="Loading product..." />;
 
   if (!product) return <NotFound />;
 
+  const handleInput = (e: any) => {
+    if (e.target.value >= 0) {
+      setQuantity(parseInt(e.target.value));
+    }
+  };
+
+  const handleUpdateCart = () => {
+    setSubmitting(true);
+    if (!item || quantity > item.quantity) {
+      const updatedQuantity = item ? quantity - item.quantity : quantity;
+      agent.Basket.addItem(product?.id!, updatedQuantity)
+        .then((basket) => setBasket(basket))
+        .catch((e) => console.log(e))
+        .finally(() => setSubmitting(false));
+    } else {
+      const updatedQuantity = item.quantity - quantity;
+      agent.Basket.removeItem(product?.id!, updatedQuantity)
+        .then(() => removeItem(product?.id!, updatedQuantity))
+        .catch((e) => console.log(e))
+        .finally(() => setSubmitting(false));
+    }
+  };
+
   return (
-    <Grid
-      container
-      spacing={6}
-      sx={{ minHeight: minHeight, pt: 1, mt: 0, mb: 0, px: "10%" }}
-    >
+    <Grid container spacing={6} sx={{ mt: 0, mb: 0, px: "5%" }}>
       <Grid item xs={12} sm={6}>
         <img
           src={product.imageUrl}
@@ -40,7 +67,7 @@ const ProductDetails = () => {
             maxHeight: "60vh",
             boxShadow: `0px 0px 4px rgba(145, 158, 171, 0.24), 0px 4px 8px -4px rgba(145, 158, 171, 0.24)`,
             borderRadius: "1%",
-            objectFit: "cover"
+            objectFit: "cover",
           }}
         />
       </Grid>
@@ -53,21 +80,34 @@ const ProductDetails = () => {
 
         <ProductTable product={product} />
 
-        <Typography
-          variant="h4"
-          color="secondary"
-          sx={{
-            mt: 3,
-            fontFamily: "Arial",
-            fontSize: "24px",
-            paddingBottom: "5%"
-          }}
-        >
-          <span style={{ color: "#3a3a3ae0", paddingRight: "1%" }}>
-            Price:{" "}
-          </span>
-          ${(product.price / 100).toFixed(2)}
-        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={6} sx={{ mb: 3 }}>
+            <TextField
+              variant="outlined"
+              type="number"
+              label="Quantity in Cart"
+              value={quantity}
+              onChange={handleInput}
+              sx={{ mt: 2, pb: "13%" }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <LoadingButton
+              disabled={
+                item?.quantity === quantity || (!item && quantity === 0)
+              }
+              loading={submitting}
+              onClick={handleUpdateCart}
+              sx={{ height: "55px", mt: 2 }}
+              color="success"
+              size="medium"
+              variant="contained"
+              fullWidth
+            >
+              {item ? "Update Quantity" : "Add to Cart"}
+            </LoadingButton>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

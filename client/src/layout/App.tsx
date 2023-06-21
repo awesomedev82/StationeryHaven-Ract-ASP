@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -11,6 +11,7 @@ import { useStoreContext } from "../context/Context";
 import { getCookie } from "../util/util";
 import agent from "../api/agent";
 import Loading from "../components/helper/Loading";
+import { minHeight } from "../muiStyles/helper/helper";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -68,7 +69,9 @@ function App() {
           </ContainerWithoutMargins>
         ) : (
           <ContainerWithMargins>
+            <Container sx={{...minHeight, pt: 3}}>
             <Outlet />
+            </Container>
           </ContainerWithMargins>
         )}
         <Footer />

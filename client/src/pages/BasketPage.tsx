@@ -1,20 +1,12 @@
-import {
-  Box,
-  Button,
-  Container,
-  ListItemIcon,
-  Typography,
-} from "@mui/material";
-import { minHeight } from "../muiStyles/helper/helper";
+import { Box, Button, ListItemIcon, Typography } from "@mui/material";
 import { useStoreContext } from "../context/Context";
 import { Link as RouterLink } from "react-router-dom";
-import image from "../images/pngwing.com (9).png";
 import BasketTable from "../components/helper/BasketTable";
-import { BoxStyle } from "../muiStyles/basket.styled";
 import { useState } from "react";
 import agent from "../api/agent";
 import ShoppingBagIcon from "../images/shopping-bag.png";
 import BasketSummary from "../components/basket/BasketSummary";
+import EmptyBasket from "../components/helper/EmptyBasket";
 
 const BasketPage = () => {
   const { basket, setBasket, removeItem } = useStoreContext();
@@ -43,50 +35,38 @@ const BasketPage = () => {
 
   const deliveryFee = subtotalCount > 10000 ? 0 : 500;
 
-  if (!basket || !basket.items.length)
-    return (
-      <BoxStyle>
-        <Typography variant="h4">Your basket is empty</Typography>
-        <img src={image} alt="404 Error" loading="lazy" />
-        <Button
-          to="/"
-          variant="contained"
-          component={RouterLink}
-          size="large"
-          disableElevation
-        >
-          Go to Product
-        </Button>
-      </BoxStyle>
-    );
+  if (!basket || !basket.items.length) return <EmptyBasket />;
 
   return (
-    <Container>
-      <Box
-        minHeight={minHeight}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Typography gutterBottom variant="h2">
+        Your Basket
+        <ListItemIcon>
+          <img
+            src={ShoppingBagIcon}
+            alt="Shopping Bag"
+            style={{ marginLeft: 10, height: "7vh" }}
+          />
+        </ListItemIcon>
+      </Typography>
+      
+      <BasketTable
+        items={basket.items}
+        addItem={handleIncrement}
+        removeItem={handleDecrement}
+        status={status}
+      />
+      <BasketSummary subtotal={subtotalCount} deliveryFee={deliveryFee} />
+      <Button
+        component={RouterLink}
+        to="/checkout"
+        variant="contained"
+        color="success"
+        sx={{ mb: "5%", mt: "1%" }}
       >
-        <Typography gutterBottom variant="h2" sx={{ pt: "2%" }}>
-          Your Basket
-          <ListItemIcon>
-            <img
-              src={ShoppingBagIcon}
-              alt="Shopping Bag"
-              style={{ marginLeft: 10, height: "7vh" }}
-            />
-          </ListItemIcon>
-        </Typography>
-        <BasketTable
-          items={basket.items}
-          addItem={handleIncrement}
-          removeItem={handleDecrement}
-          status={status}
-        />
-        <BasketSummary subtotal={subtotalCount} deliveryFee={deliveryFee} />
-      </Box>
-    </Container>
+        Checkout
+      </Button>
+    </Box>
   );
 };
 

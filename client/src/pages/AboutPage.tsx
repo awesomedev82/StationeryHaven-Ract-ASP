@@ -1,8 +1,11 @@
-import { Container } from "@mui/material";
-import { minHeight } from "../muiStyles/helper/helper";
+import { Typography } from "@mui/material";
 
 const AboutPage = () => {
-  return <Container style={{ ...minHeight }}>About</Container>;
+  return (
+    <Typography variant="h2">
+      About Page
+    </Typography>
+  )
 };
 
 export default AboutPage;
