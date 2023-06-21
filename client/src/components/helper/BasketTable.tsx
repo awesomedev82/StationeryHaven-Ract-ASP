@@ -16,14 +16,20 @@ import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import { currencyFormat } from "../../muiStyles/helper/helper";
 
+interface Status {
+  loading: boolean;
+  name: string;
+}
+
 interface Props {
   items: BasketItem[];
   addItem: (productId: number, name: string) => void;
   removeItem: (productId: number, quantity: number, name: string) => void;
-  status: any;
+  status: Status;
 }
 
 const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 

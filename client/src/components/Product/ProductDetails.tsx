@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
 import Loading from "../helper/Loading";
@@ -33,9 +33,10 @@ const ProductDetails = () => {
 
   if (!product) return <NotFound />;
 
-  const handleInput = (e: any) => {
-    if (e.target.value >= 0) {
-      setQuantity(parseInt(e.target.value));
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = parseInt(e.target.value);
+    if (!isNaN(inputValue) && inputValue >= 0) {
+      setQuantity(inputValue);
     }
   };
 

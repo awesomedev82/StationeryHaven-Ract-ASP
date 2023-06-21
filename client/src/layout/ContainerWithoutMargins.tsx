@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import img from "../images/background.jpg";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
 }
 
 const AppWithoutMargins = ({ children }: Props) => {
