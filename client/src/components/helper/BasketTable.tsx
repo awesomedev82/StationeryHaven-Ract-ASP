@@ -14,7 +14,7 @@ import { tableHeaders } from "../../lib/constants";
 import { LoadingButton } from "@mui/lab";
 import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
-import { currencyFormat } from "../../muiStyles/helper/helper";
+import { currencyFormat } from "../../util/util";
 
 interface Status {
   loading: boolean;

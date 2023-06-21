@@ -9,7 +9,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import img from "../../images/label.png";
-import { currencyFormat } from "../../muiStyles/helper/helper";
+import { currencyFormat } from "../../util/util";
 
 interface Props {
   subtotal: number;

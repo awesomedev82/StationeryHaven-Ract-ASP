@@ -12,10 +12,9 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
-import { navStyles, navStylesForLogo } from "../muiStyles/navbar/navStyle";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
-import { StyledBox, StyledFlexBox } from "../muiStyles/navbar/navbar.styled";
+import { StyledBox, StyledFlexBox, navListStyles } from "../muiStyles/navbar/navbar.styled";
 import { useStoreContext } from "../context/Context";
 
 interface Props {
@@ -56,7 +55,6 @@ const Navbar = ({ darkMode, theme }: Props) => {
           <Typography
             variant="h5"
             sx={{
-              ...navStylesForLogo,
               display: "flex",
               alignItems: "center",
               height: "100%",
@@ -85,7 +83,7 @@ const Navbar = ({ darkMode, theme }: Props) => {
                   key={path}
                   component={NavLink}
                   to={path}
-                  sx={navStyles}
+                  sx={navListStyles}
                   style={{ fontFamily: "Montserrat" }}
                 >
                   {title}
