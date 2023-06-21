@@ -1,12 +1,13 @@
-import { Typography, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { BoxStyle } from "../../muiStyles/basket.styled";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../../images/pngwing.com (9).png";
+import CustomTitle from "./Title";
 
 const EmptyBasket = () => {
   return (
     <BoxStyle sx={{ mt: 3 }}>
-      <Typography variant="h4">Your basket is empty</Typography>
+      <CustomTitle text="Your basket is empty" variant="h3" />
       <img src={image} alt="404 Error" loading="lazy" />
       <Button
         to="/"

@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import agent from "../api/agent";
 import { useState } from "react";
+import CustomTitle from "../components/helper/Title";
 
 const ErrorPage = () => {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
@@ -21,10 +22,8 @@ const ErrorPage = () => {
 
   return (
     <>
-      <Typography gutterBottom variant="h2">
-        Errors for testing
-      </Typography>
-      <ButtonGroup fullWidth>
+      <CustomTitle text="Errors for testing" gutterBottom variant="h2" />
+      <ButtonGroup fullWidth sx={{ minHeight: "8vh" }}>
         <Button
           variant="contained"
           onClick={() => agent.TestErrors.get400().catch((e) => console.log(e))}

@@ -38,7 +38,6 @@ const ProductCard = ({ product }: Props) => {
 
       <Box sx={{ py: 2, px: 3 }}>
         <ProductTitle name={name} productLink={`/product/${product.id}`} />
-
         <Box
           display="flex"
           justifyContent="space-between"

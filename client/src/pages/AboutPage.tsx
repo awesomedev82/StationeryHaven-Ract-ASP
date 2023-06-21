@@ -1,11 +1,7 @@
-import { Typography } from "@mui/material";
+import CustomTitle from "../components/helper/Title";
 
 const AboutPage = () => {
-  return (
-    <Typography variant="h2">
-      About Page
-    </Typography>
-  )
+  return <CustomTitle text="About Page" variant="h2" />;
 };
 
 export default AboutPage;

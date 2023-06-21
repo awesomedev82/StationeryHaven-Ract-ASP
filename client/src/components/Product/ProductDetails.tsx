@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import { Product } from "../../models/product";
 import Loading from "../helper/Loading";
 import NotFound from "../../pages/NotFound";
-import { Divider, Grid, TextField, Typography } from "@mui/material";
+import { Divider, Grid, TextField } from "@mui/material";
 import agent from "../../api/agent";
 import ProductTable from "../helper/Table";
 import { useStoreContext } from "../../context/Context";
 import { LoadingButton } from "@mui/lab";
+import CustomTitle from "../helper/Title";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -74,9 +75,11 @@ const ProductDetails = () => {
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <Typography variant="h3" sx={{ fontFamily: "Arial", fontSize: "26px" }}>
-          {product.name}
-        </Typography>
+        <CustomTitle
+          text={product.name}
+          variant="h3"
+          sx={{ fontFamily: "Arial", fontSize: "26px" }}
+        />
         <Divider sx={{ mb: 2 }} />
 
         <ProductTable product={product} />

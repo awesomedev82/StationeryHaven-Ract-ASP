@@ -2,6 +2,7 @@ import { Box, IconButton, styled } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import { useState } from "react";
 import { images } from "../../lib/constants";
+import CustomTitle from "./Title";
 
 const Slider = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -53,16 +54,13 @@ const Slider = () => {
             background: "rgba(255, 255, 255, 0.295)",
           }}
         ></BoxAbsolute>
-        <p
-          style={{
-            color: "white",
-            textTransform: "uppercase",
-            fontSize: "30px",
-            fontFamily: "Monserat",
-          }}
-        >
-          Stationery Heaven
-        </p>
+
+        <CustomTitle
+          text="Stationery Heaven"
+          variant="h4"
+          fontFamily="Monserat"
+          textTransform="uppercase"
+        />
       </BoxAbsolute>
       <IconButton
         onClick={handlePreviousImage}

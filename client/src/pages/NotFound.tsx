@@ -1,8 +1,9 @@
-import { Typography, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../images/3814346.png";
+import CustomTitle from "../components/helper/Title";
 
 const BoxStyle = styled(Box)(({ theme }) => ({
   maxWidth: theme.breakpoints.values.sm,
@@ -38,7 +39,7 @@ const ErrorPage = () => {
   return (
     <>
       <BoxStyle>
-        <Typography variant="h4">Sorry, page not found!</Typography>
+        <CustomTitle text="Sorry, page not found!" variant="h4" />
         <img src={image} alt="404 Error" loading="lazy" />
         <Button
           to="/"

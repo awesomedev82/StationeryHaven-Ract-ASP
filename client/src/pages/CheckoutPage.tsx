@@ -1,10 +1,14 @@
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import CustomTitle from "../components/helper/Title";
 
 const CheckoutPage = () => {
   return (
-    <Typography variant="h3" sx={{ pt: 3 }}>
-      Only logged in users should be able to see this!
-    </Typography>
+    <Box sx={{ pt: 3 }}>
+      <CustomTitle
+        text="Only logged in users should be able to see this!"
+        variant="h3"
+      />
+    </Box>
   );
 };
 
