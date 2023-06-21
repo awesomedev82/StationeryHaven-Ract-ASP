@@ -14,6 +14,7 @@ import { tableHeaders } from "../../lib/constants";
 import { LoadingButton } from "@mui/lab";
 import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
+import { currencyFormat } from "../../muiStyles/helper/helper";
 
 interface Props {
   items: BasketItem[];
@@ -76,7 +77,7 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
                 </TableCell>
 
                 <TableCell align="right">
-                  ${(item.price / 100).toFixed(2)}
+                  {currencyFormat(item.price)}
                 </TableCell>
 
                 <TableCell align="center">
@@ -135,16 +136,18 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-  rowsPerPageOptions={[5, 10, 25]}
-  component="div"
-  count={items.length}
-  rowsPerPage={rowsPerPage}
-  page={page}
-  onPageChange={handleChangePage}
-  onRowsPerPageChange={handleChangeRowsPerPage}
-  labelDisplayedRows={() => ``}
-      />
+      <Box width="100%" display="flex" justifyContent="right">
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={items.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelDisplayedRows={() => ``}
+        />
+      </Box>
     </>
   );
 };

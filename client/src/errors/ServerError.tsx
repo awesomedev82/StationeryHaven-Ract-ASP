@@ -5,7 +5,7 @@ const ServerError = () => {
   const { state } = useLocation();
 
   return (
-    <Container component={Paper}>
+    <Container component={Paper} sx={{mt: "2%", mb: "2%"}}>
       {state?.error ? (
         <>
           <Typography

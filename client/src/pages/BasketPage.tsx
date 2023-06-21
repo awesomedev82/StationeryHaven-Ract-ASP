@@ -14,6 +14,7 @@ import { BoxStyle } from "../muiStyles/basket.styled";
 import { useState } from "react";
 import agent from "../api/agent";
 import ShoppingBagIcon from "../images/shopping-bag.png";
+import BasketSummary from "../components/basket/BasketSummary";
 
 const BasketPage = () => {
   const { basket, setBasket, removeItem } = useStoreContext();
@@ -35,6 +36,13 @@ const BasketPage = () => {
       .finally(() => setStatus({ loading: false, name: "" }));
   };
 
+  const subtotalCount =
+    basket?.items.reduce((a, b) => {
+      return a + b.price * b.quantity;
+    }, 0) ?? 0;
+
+  const deliveryFee = subtotalCount > 10000 ? 0 : 500;
+
   if (!basket || !basket.items.length)
     return (
       <BoxStyle>
@@ -54,8 +62,13 @@ const BasketPage = () => {
 
   return (
     <Container>
-      <Box minHeight={minHeight}>
-        <Typography gutterBottom variant="h2">
+      <Box
+        minHeight={minHeight}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Typography gutterBottom variant="h2" sx={{ pt: "2%" }}>
           Your Basket
           <ListItemIcon>
             <img
@@ -71,6 +84,7 @@ const BasketPage = () => {
           removeItem={handleDecrement}
           status={status}
         />
+        <BasketSummary subtotal={subtotalCount} deliveryFee={deliveryFee} />
       </Box>
     </Container>
   );
