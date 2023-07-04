@@ -15,7 +15,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
 import { StyledBox, StyledFlexBox, navListStyles } from "../muiStyles/navbar/navbar.styled";
-import { useStoreContext } from "../context/Context";
+import { useAppSelector } from "../redux/store/configureStore";
 
 interface Props {
   darkMode: boolean;
@@ -28,7 +28,8 @@ const Navbar = ({ darkMode, theme }: Props) => {
   const text = darkMode ? "#ffffff" : "#000000";
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket);
+  
   const itemCount = basket?.items.reduce((a, b) => {
     return a + b.quantity;
   }, 0);

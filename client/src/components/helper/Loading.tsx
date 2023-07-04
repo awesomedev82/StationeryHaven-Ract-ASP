@@ -1,7 +1,7 @@
 import { Backdrop, Box, CircularProgress } from "@mui/material";
 import { minHeight } from "../../muiStyles/helper/helper";
 import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
-import CustomTitle from "./Title";
+import CustomTitle from "./CustomTitle";
 
 interface Props {
   message?: string;

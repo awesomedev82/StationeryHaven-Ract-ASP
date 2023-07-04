@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import agent from "../api/agent";
 import { useState } from "react";
-import CustomTitle from "../components/helper/Title";
+import CustomTitle from "../components/helper/CustomTitle";
 
 const ErrorPage = () => {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);

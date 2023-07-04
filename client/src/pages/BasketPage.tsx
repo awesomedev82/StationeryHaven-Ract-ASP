@@ -1,5 +1,4 @@
 import { Box, Button, ListItemIcon, Typography } from "@mui/material";
-import { useStoreContext } from "../context/Context";
 import { Link as RouterLink } from "react-router-dom";
 import BasketTable from "../components/helper/BasketTable";
 import { useState } from "react";
@@ -7,15 +6,18 @@ import agent from "../api/agent";
 import ShoppingBagIcon from "../images/shopping-bag.png";
 import BasketSummary from "../components/basket/BasketSummary";
 import EmptyBasket from "../components/helper/EmptyBasket";
+import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
+import { removeItem, setBasket } from "../redux/basketSlice";
 
 const BasketPage = () => {
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
   const [status, setStatus] = useState({ loading: false, name: "" });
 
   const handleIncrement = (productId: number, name: string) => {
     setStatus({ loading: true, name: name });
     agent.Basket.addItem(productId)
-      .then((basket) => setBasket(basket))
+      .then((basket) => dispatch(setBasket(basket)))
       .catch((e) => console.log(e))
       .finally(() => setStatus({ loading: false, name: "" }));
   };
@@ -23,7 +25,7 @@ const BasketPage = () => {
   const handleDecrement = (productId: number, quantity = 1, name: string) => {
     setStatus({ loading: true, name: name });
     agent.Basket.removeItem(productId, quantity)
-      .then(() => removeItem(productId, quantity))
+      .then(() => dispatch(removeItem({productId, quantity})))
       .catch((e) => console.log(e))
       .finally(() => setStatus({ loading: false, name: "" }));
   };
@@ -33,7 +35,7 @@ const BasketPage = () => {
       return a + b.price * b.quantity;
     }, 0) ?? 0;
 
-  const deliveryFee = subtotalCount > 10000 ? 0 : 500;
+  const deliveryFee = subtotalCount > 9999 ? 0 : 500;
 
   if (!basket || !basket.items.length) return <EmptyBasket />;
 
@@ -49,7 +51,7 @@ const BasketPage = () => {
           />
         </ListItemIcon>
       </Typography>
-      
+
       <BasketTable
         items={basket.items}
         addItem={handleIncrement}

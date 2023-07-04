@@ -1,7 +1,7 @@
 import { Typography, TypographyProps } from "@mui/material";
 
 interface Props extends TypographyProps {
-  text: string;
+  text: string | number;
   gutterBottom?: boolean;
 }
 

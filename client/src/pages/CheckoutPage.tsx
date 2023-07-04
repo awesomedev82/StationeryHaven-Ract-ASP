@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import CustomTitle from "../components/helper/Title";
+import CustomTitle from "../components/helper/CustomTitle";
 
 const CheckoutPage = () => {
   return (

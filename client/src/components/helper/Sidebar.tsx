@@ -13,10 +13,10 @@ import { links } from "../../lib/constants";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
-import { useStoreContext } from "../../context/Context";
+import { useAppSelector } from "../../redux/store/configureStore";
 
 const Sidebar = () => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
 
   const itemCount = basket?.items.reduce((a, b) => {
     return a + b.quantity;

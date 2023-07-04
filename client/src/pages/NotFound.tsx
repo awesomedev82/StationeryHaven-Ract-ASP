@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../images/3814346.png";
-import CustomTitle from "../components/helper/Title";
+import CustomTitle from "../components/helper/CustomTitle";
 
 const BoxStyle = styled(Box)(({ theme }) => ({
   maxWidth: theme.breakpoints.values.sm,

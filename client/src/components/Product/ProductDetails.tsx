@@ -6,13 +6,18 @@ import NotFound from "../../pages/NotFound";
 import { Divider, Grid, TextField } from "@mui/material";
 import agent from "../../api/agent";
 import ProductTable from "../helper/Table";
-import { useStoreContext } from "../../context/Context";
 import { LoadingButton } from "@mui/lab";
-import CustomTitle from "../helper/Title";
+import CustomTitle from "../helper/CustomTitle";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store/configureStore";
+import { removeItem, setBasket } from "../../redux/basketSlice";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -46,13 +51,13 @@ const ProductDetails = () => {
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
       agent.Basket.addItem(product?.id!, updatedQuantity)
-        .then((basket) => setBasket(basket))
+        .then((basket) => dispatch(setBasket(basket)))
         .catch((e) => console.log(e))
         .finally(() => setSubmitting(false));
     } else {
       const updatedQuantity = item.quantity - quantity;
       agent.Basket.removeItem(product?.id!, updatedQuantity)
-        .then(() => removeItem(product?.id!, updatedQuantity))
+        .then(() => dispatch(removeItem(({productId: product?.id!, quantity: updatedQuantity}))))
         .catch((e) => console.log(e))
         .finally(() => setSubmitting(false));
     }

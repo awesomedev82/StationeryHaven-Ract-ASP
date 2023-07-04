@@ -1,5 +1,10 @@
 import Navbar from "./Navbar";
-import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -7,17 +12,18 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./Footer";
 import ContainerWithoutMargins from "./ContainerWithoutMargins";
 import ContainerWithMargins from "./ContainerWithMargins";
-import { useStoreContext } from "../context/Context";
 import { getCookie } from "../util/util";
 import agent from "../api/agent";
 import Loading from "../components/helper/Loading";
 import { minHeight } from "../muiStyles/helper/helper";
+import { useAppDispatch } from "../redux/store/configureStore";
+import { setBasket } from "../redux/basketSlice";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const buyerId = getCookie("buyerId");
@@ -25,13 +31,13 @@ function App() {
     if (buyerId) {
       setLoading(true);
       agent.Basket.get()
-        .then((basket) => setBasket(basket))
+        .then((basket) => dispatch(setBasket(basket)))
         .catch((e) => console.log(e))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [setBasket]);
+  }, [dispatch]);
 
   const paletteType = darkMode ? "dark" : "light";
   const theme = createTheme({
@@ -69,8 +75,8 @@ function App() {
           </ContainerWithoutMargins>
         ) : (
           <ContainerWithMargins>
-            <Container sx={{...minHeight, pt: 3}}>
-            <Outlet />
+            <Container sx={{ ...minHeight, pt: 3 }}>
+              <Outlet />
             </Container>
           </ContainerWithMargins>
         )}

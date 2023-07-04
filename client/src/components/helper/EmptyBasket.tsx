@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { BoxStyle } from "../../muiStyles/basket.styled";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../../images/pngwing.com (9).png";
-import CustomTitle from "./Title";
+import CustomTitle from "./CustomTitle";
 
 const EmptyBasket = () => {
   return (

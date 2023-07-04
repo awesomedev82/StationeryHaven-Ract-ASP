@@ -1,4 +1,4 @@
-import CustomTitle from "../components/helper/Title";
+import CustomTitle from "../components/helper/CustomTitle";
 
 const AboutPage = () => {
   return <CustomTitle text="About Page" variant="h2" />;
