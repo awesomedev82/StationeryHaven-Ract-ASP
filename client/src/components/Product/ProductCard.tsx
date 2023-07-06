@@ -2,32 +2,24 @@ import { Button, CardActions, Divider, Box } from "@mui/material";
 import { Link as RouteLink } from "react-router-dom";
 import { Product } from "../../models/product";
 import ProductPrice from "./productCard/ProductPrice";
-import { useState } from "react";
-import agent from "../../api/agent";
 import { CardStyle } from "../../muiStyles/product/product.styled";
 import ProductImage from "./productCard/ProductImage";
 import AddToBasketButton from "./productCard/AddToBasketButton";
 import ProductTitle from "./productCard/ProductTitle";
-import { useAppDispatch } from "../../redux/store/configureStore";
-import { setBasket } from "../../redux/basketSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store/configureStore";
+import { addBasketItemAsync } from "../../redux/basketSlice";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
+  const { status } = useAppSelector((state) => state.basket);
   const { name, price, imageUrl, quantityInStock } = product;
   const dispatch = useAppDispatch();
-
-  const [loading, setLoading] = useState(false);
-
-  const handleAddItem = (productId: number) => {
-    setLoading(true);
-    agent.Basket.addItem(productId)
-      .then((basket) => dispatch(setBasket(basket)))
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  };
 
   return (
     <CardStyle>
@@ -63,8 +55,10 @@ const ProductCard = ({ product }: Props) => {
       </Box>
       <CardActions style={{ display: "flex", justifyContent: "center" }}>
         <AddToBasketButton
-          loading={loading}
-          handleAddItem={() => handleAddItem(product.id)}
+          loading={status.includes("pendingAddItem" + product.id)}
+          handleAddItem={() =>
+            dispatch(addBasketItemAsync({ productId: product.id }))
+          }
         />
       </CardActions>
     </CardStyle>
