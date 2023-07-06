@@ -15,21 +15,23 @@ import { LoadingButton } from "@mui/lab";
 import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import { currencyFormat } from "../../util/util";
-
-interface Status {
-  loading: boolean;
-  name: string;
-}
+import {
+  addBasketItemAsync,
+  removeBasketItemAsync,
+} from "../../redux/basketSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store/configureStore";
 
 interface Props {
   items: BasketItem[];
-  addItem: (productId: number, name: string) => void;
-  removeItem: (productId: number, quantity: number, name: string) => void;
-  status: Status;
 }
 
-const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
-  
+const BasketTable = ({ items }: Props) => {
+  const { status } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -43,6 +45,7 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
@@ -90,10 +93,16 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
                   <LoadingButton
                     color="primary"
                     onClick={() =>
-                      removeItem(item.productId, 1, "rem" + item.productId)
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: 1,
+                          name: "rem",
+                        })
+                      )
                     }
                     loading={
-                      status.loading && status.name === "rem" + item.productId
+                      status === "pendingRemoveItem" + item.productId + "rem"
                     }
                   >
                     <Remove />
@@ -102,11 +111,13 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
                   <LoadingButton
                     color="primary"
                     onClick={() =>
-                      addItem(item.productId, "add" + item.productId)
+                      dispatch(
+                        addBasketItemAsync({
+                          productId: item.productId,
+                        })
+                      )
                     }
-                    loading={
-                      status.loading && status.name === "add" + item.productId
-                    }
+                    loading={status === "pendingAddItem" + item.productId}
                   >
                     <Add />
                   </LoadingButton>
@@ -119,14 +130,16 @@ const BasketTable = ({ items, addItem, removeItem, status }: Props) => {
                   <LoadingButton
                     color="error"
                     onClick={() =>
-                      removeItem(
-                        item.productId,
-                        item.quantity,
-                        "del" + item.productId
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: item.quantity,
+                          name: "del",
+                        })
                       )
                     }
                     loading={
-                      status.loading && status.name === "del" + item.productId
+                      status === "pendingRemoveItem" + item.productId + "del"
                     }
                   >
                     <Delete />

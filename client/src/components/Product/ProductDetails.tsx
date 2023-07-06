@@ -12,17 +12,16 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../redux/store/configureStore";
-import { removeItem, setBasket } from "../../redux/basketSlice";
+import { addBasketItemAsync, removeBasketItemAsync } from "../../redux/basketSlice";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const { basket } = useAppSelector((state) => state.basket);
+  const { basket, status } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
 
   const item = basket?.items.find((i) => i.productId === product?.id);
 
@@ -47,19 +46,22 @@ const ProductDetails = () => {
   };
 
   const handleUpdateCart = () => {
-    setSubmitting(true);
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      agent.Basket.addItem(product?.id!, updatedQuantity)
-        .then((basket) => dispatch(setBasket(basket)))
-        .catch((e) => console.log(e))
-        .finally(() => setSubmitting(false));
+      dispatch(
+        addBasketItemAsync({
+          productId: product?.id!,
+          quantity: updatedQuantity,
+        })
+      );
     } else {
       const updatedQuantity = item.quantity - quantity;
-      agent.Basket.removeItem(product?.id!, updatedQuantity)
-        .then(() => dispatch(removeItem(({productId: product?.id!, quantity: updatedQuantity}))))
-        .catch((e) => console.log(e))
-        .finally(() => setSubmitting(false));
+      dispatch(
+        removeBasketItemAsync({
+          productId: product?.id!,
+          quantity: updatedQuantity,
+        })
+      );
     }
   };
 
@@ -105,7 +107,7 @@ const ProductDetails = () => {
               disabled={
                 item?.quantity === quantity || (!item && quantity === 0)
               }
-              loading={submitting}
+              loading={status.includes("pending" + product.id)}
               onClick={handleUpdateCart}
               sx={{ height: "55px", mt: 2 }}
               color="success"
