@@ -1,10 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../models/product";
 import Loading from "../helper/Loading";
 import NotFound from "../../pages/NotFound";
 import { Divider, Grid, TextField } from "@mui/material";
-import agent from "../../api/agent";
 import ProductTable from "../helper/Table";
 import { LoadingButton } from "@mui/lab";
 import CustomTitle from "../helper/CustomTitle";
@@ -12,29 +10,32 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../redux/store/configureStore";
-import { addBasketItemAsync, removeBasketItemAsync } from "../../redux/basketSlice";
+import {
+  addBasketItemAsync,
+  removeBasketItemAsync,
+} from "../../redux/basketSlice";
+import { fetchProductAsync, productsSelectors } from "../../redux/productSlice";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { basket, status } = useAppSelector((state) => state.basket);
+  const { status: productStatus } = useAppSelector((state) => state.product);
+  const product = useAppSelector((state) =>
+    productsSelectors.selectById(state, id!)
+  );
   const dispatch = useAppDispatch();
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
 
   const item = basket?.items.find((i) => i.productId === product?.id);
 
   useEffect(() => {
     if (item) setQuantity(item.quantity);
-    id &&
-      agent.Product.details(id)
-        .then((res) => setProduct(res))
-        .catch((error) => console.log(error))
-        .finally(() => setLoading(false));
-  }, [id, item]);
+    if (!product && id) dispatch(fetchProductAsync(parseInt(id)));
+  }, [id, item, dispatch, product]);
 
-  if (loading) return <Loading message="Loading product..." />;
+  if (productStatus.includes("pending"))
+    return <Loading message="Loading product..." />;
 
   if (!product) return <NotFound />;
 

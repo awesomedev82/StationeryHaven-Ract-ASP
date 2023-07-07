@@ -50,7 +50,7 @@ const request = {
 
 const Product = {
   list: () => request.get("products"),
-  details: (id: string) => request.get(`products/${id}`),
+  details: (id: number) => request.get(`products/${id}`),
 };
 
 export const TestErrors = {

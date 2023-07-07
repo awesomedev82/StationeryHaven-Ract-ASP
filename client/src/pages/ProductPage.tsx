@@ -1,23 +1,22 @@
-import { Product } from "../models/product";
 import ProductList from "../components/product/ProductList";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Loading from "../components/helper/Loading";
-import agent from "../api/agent";
 import { Container, Grid, Typography } from "@mui/material";
 import Slider from "../components/helper/Slider";
+import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
+import { fetchProductsAsync, productsSelectors } from "../redux/productSlice";
 
 const ProductPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const products = useAppSelector(productsSelectors.selectAll);
+  const { productsLoaded, status } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    agent.Product.list()
-      .then((products) => setProducts(products))
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
-  }, []);
+    if (!productsLoaded) dispatch(fetchProductsAsync());
+  }, [productsLoaded, dispatch]);
 
-  if (loading) return <Loading message="Loading products..." />;
+  if (status.includes("pending"))
+    return <Loading message="Loading products..." />;
 
   return (
     <>
