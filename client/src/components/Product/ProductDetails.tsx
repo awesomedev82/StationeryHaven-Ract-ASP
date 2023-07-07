@@ -67,7 +67,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <Grid container spacing={6} sx={{ mt: 0, mb: 0, px: "5%" }}>
+    <Grid container spacing={6} sx={{ mt: 0, mb: 0 }}>
       <Grid item xs={12} sm={6}>
         <img
           src={product.imageUrl}
@@ -93,7 +93,7 @@ const ProductDetails = () => {
         <ProductTable product={product} />
 
         <Grid container spacing={2}>
-          <Grid item xs={6} sx={{ mb: 3 }}>
+          <Grid item xs={6}>
             <TextField
               variant="outlined"
               type="number"
@@ -108,7 +108,7 @@ const ProductDetails = () => {
               disabled={
                 item?.quantity === quantity || (!item && quantity === 0)
               }
-              loading={status.includes("pending" + product.id)}
+              loading={status.includes("pending")}
               onClick={handleUpdateCart}
               sx={{ height: "55px", mt: 2 }}
               color="success"
