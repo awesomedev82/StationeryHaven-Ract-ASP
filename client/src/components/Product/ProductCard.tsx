@@ -17,7 +17,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { status } = useAppSelector((state) => state.basket);
+  const { status } = useAppSelector((state : any) => state.basket);
   const { name, price, imageUrl, quantityInStock } = product;
   const dispatch = useAppDispatch();
 

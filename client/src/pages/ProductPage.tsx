@@ -1,23 +1,39 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect } from "react";
 import Loading from "../components/helper/Loading";
-import { Box, Container, Grid, Pagination, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  Typography,
+  debounce,
+} from "@mui/material";
 import Slider from "../components/helper/Slider";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
   fetchFilters,
   fetchProductsAsync,
   productsSelectors,
+  setProductParams,
 } from "../redux/productSlice";
-import SearchComponent from "../components/dataControls/SearchComponent";
 import { sortOptions } from "../lib/constants";
-import RadioButton from "../components/dataControls/RadioButtonComponent";
-import CheckboxComponent from "../components/dataControls/CheckboxComponent";
+import {
+  SearchComponent,
+  RadioButton,
+  CheckboxComponent,
+} from "../components/dataControls";
 
 const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);
-  const { productsLoaded, status, filtersLoaded, brands, types } =
-    useAppSelector((state) => state.product);
+  const {
+    productsLoaded,
+    status,
+    filtersLoaded,
+    brands,
+    types,
+    productParams,
+  } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -30,6 +46,15 @@ const ProductPage = () => {
 
   if (status.includes("pending"))
     return <Loading message="Loading products..." />;
+
+  const handleSearchInputChange = (event: any) => {
+    dispatch(setProductParams({ searchTerm: event.target.value }));
+  };
+
+  const debouncerSearch = debounce((event: any) => {
+    handleSearchInputChange(event);
+  }, 1000);
+
 
   return (
     <>
@@ -53,8 +78,16 @@ const ProductPage = () => {
               label="Search products"
               searchWithIcon
               iconPosition="start"
+              productParams={productParams}
+              onChange={debouncerSearch}
             />
-            <RadioButton sortOptions={sortOptions} />
+            <RadioButton
+              sortOptions={sortOptions}
+              selectedValue={productParams.orderBy}
+              onChange={(e) =>
+                dispatch(setProductParams({ orderBy: e.target.value }))
+              }
+            />
 
             <CheckboxComponent label="Brands" options={brands} />
             <CheckboxComponent label="Types" options={types} />

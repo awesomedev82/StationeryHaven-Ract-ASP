@@ -92,7 +92,7 @@ export const productSlice = createSlice({
       state.productsLoaded = false;
       state.productParams = { ...state.productParams, ...action.payload };
     },
-    resetProductParams: (state, action) => {
+    resetProductParams: (state) => {
       state.productParams = initParams();
     },
   },

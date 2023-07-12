@@ -14,16 +14,23 @@ interface SortOption {
 
 interface Props {
   sortOptions: SortOption[];
+  onChange: (event: any) => void;
+  selectedValue: string;
 }
 
-const RadioButton = ({ sortOptions }: Props) => {
+const RadioButton = ({ sortOptions, onChange, selectedValue }: Props) => {
   return (
     <Paper sx={{ mt: 2, p: 2, overflow: "auto" }}>
       <FormControl>
         <FormLabel id="demo-radio-buttons-group-label">Sort Options</FormLabel>
-        <RadioGroup>
+        <RadioGroup onChange={onChange} value={selectedValue}>
           {sortOptions.map(({ value, label }: SortOption) => (
-            <FormControlLabel key={value} value={value} control={<Radio />} label={label} />
+            <FormControlLabel
+              key={value}
+              value={value}
+              control={<Radio />}
+              label={label}
+            />
           ))}
         </RadioGroup>
       </FormControl>

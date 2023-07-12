@@ -11,7 +11,7 @@ namespace server.Extensions
       query = orderBy switch
       {
         "price" => query.OrderBy(p => p.Price),
-        "priceDesc" => query.OrderBy(p => p.Price),
+        "priceDesc" => query.OrderByDescending(p => p.Price),
         _ => query.OrderBy(p => p.Name)
       };
       return query;
