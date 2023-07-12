@@ -8,7 +8,7 @@ import {
 
 interface Props {
   label: string;
-  options: any;
+  options: any[];
 }
 
 const CheckboxComponent = ({ label, options }: Props) => {
@@ -17,7 +17,11 @@ const CheckboxComponent = ({ label, options }: Props) => {
       <FormLabel component="legend">{label} Checkboxes</FormLabel>
       <FormGroup>
         {options.map((option: any) => (
-          <FormControlLabel key={option} control={<Checkbox />} label={option} />
+          <FormControlLabel
+            key={option}
+            control={<Checkbox />}
+            label={option}
+          />
         ))}
       </FormGroup>
     </Paper>

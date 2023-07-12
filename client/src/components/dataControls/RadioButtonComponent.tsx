@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 
 interface SortOption {
-  value: "string";
-  label: "string";
+  value: string;
+  label: string;
 }
 
 interface Props {
-  sortOptions: any[];
+  sortOptions: SortOption[];
 }
 
 const RadioButton = ({ sortOptions }: Props) => {
@@ -23,7 +23,7 @@ const RadioButton = ({ sortOptions }: Props) => {
         <FormLabel id="demo-radio-buttons-group-label">Sort Options</FormLabel>
         <RadioGroup>
           {sortOptions.map(({ value, label }: SortOption) => (
-            <FormControlLabel value={value} control={<Radio />} label={label} />
+            <FormControlLabel key={value} value={value} control={<Radio />} label={label} />
           ))}
         </RadioGroup>
       </FormControl>

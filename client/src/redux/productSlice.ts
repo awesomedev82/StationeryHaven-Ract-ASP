@@ -3,17 +3,43 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import { Product } from "../models/product";
+import { Product, ProductParams } from "../models/product";
 import agent from "../api/agent";
 import { RootState } from "./store/configureStore";
 
+interface ProductState {
+  productsLoaded: boolean;
+  filtersLoaded: boolean;
+  status: string;
+  brands: string[];
+  types: string[];
+  productParams: ProductParams;
+}
+
 const productsAdapter = createEntityAdapter<Product>();
 
-export const fetchProductsAsync = createAsyncThunk<Product[]>(
+// Create an entity adapter for managing products
+function getAxiosParams(productParams: ProductParams) {
+  const params = new URLSearchParams();
+  params.append("pageNumber", productParams.pageNumber.toString());
+  params.append("pageSize", productParams.pageSize.toString());
+  params.append("orderBy", productParams.orderBy);
+  if (productParams.searchTerm)
+    params.append("searchTerm", productParams.searchTerm);
+  if (productParams.brands)
+    params.append("brands", productParams.brands.toString());
+  if (productParams.types)
+    params.append("types", productParams.types.toString());
+  return params;
+}
+
+// Define async thunks for fetching products, a single product, and filters
+export const fetchProductsAsync = createAsyncThunk<Product[], void, {state: RootState}>(
   "product/fetchProductsAsync",
   async (_, thunkAPI) => {
     try {
-      return await agent.Product.list();
+      const params = getAxiosParams(thunkAPI.getState().product.productParams)
+      return await agent.Product.list(params);
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.data });
     }
@@ -42,16 +68,34 @@ export const fetchFilters = createAsyncThunk(
   }
 );
 
+// Helper function to initialize product params
+function initParams() {
+  return {
+    pageNumber: 1,
+    pageSize: 6,
+    orderBy: "name",
+  };
+}
+
 export const productSlice = createSlice({
   name: "product",
-  initialState: productsAdapter.getInitialState({
+  initialState: productsAdapter.getInitialState<ProductState>({
     productsLoaded: false,
     filtersLoaded: false,
     status: "idle",
     brands: [],
     types: [],
+    productParams: initParams(),
   }),
-  reducers: {},
+  reducers: {
+    setProductParams: (state, action) => {
+      state.productsLoaded = false;
+      state.productParams = { ...state.productParams, ...action.payload };
+    },
+    resetProductParams: (state, action) => {
+      state.productParams = initParams();
+    },
+  },
   extraReducers: (buider) => {
     // fetch all products
     buider.addCase(fetchProductsAsync.pending, (state) => {
@@ -74,7 +118,7 @@ export const productSlice = createSlice({
       productsAdapter.upsertOne(state, action.payload);
       state.status = "idle";
     });
-    buider.addCase(fetchProductAsync.rejected, (state, action) => {
+    buider.addCase(fetchProductAsync.rejected, (state) => {
       state.status = "idle";
     });
 
@@ -88,9 +132,9 @@ export const productSlice = createSlice({
       state.status = "idle";
       state.filtersLoaded = true;
     });
-    buider.addCase(fetchFilters.rejected, (state, action) => {
+    buider.addCase(fetchFilters.rejected, (state) => {
       state.status = "idle";
-      state.filtersLoaded = false;   
+      state.filtersLoaded = false;
     });
   },
 });
@@ -98,3 +142,5 @@ export const productSlice = createSlice({
 export const productsSelectors = productsAdapter.getSelectors(
   (state: RootState) => state.product
 );
+
+export const { setProductParams, resetProductParams } = productSlice.actions;
