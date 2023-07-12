@@ -2,15 +2,17 @@ import { Box } from "@mui/material";
 import { LabelStyle } from "../../../muiStyles/product/product.styled";
 
 interface Props {
-  imageUrl: string
-  name: string
-  quantityInStock?: number
+  imageUrl: string;
+  name: string;
+  quantityInStock?: number;
 }
 
 const ProductImage = ({ imageUrl, name, quantityInStock }: Props) => (
-  <Box sx={{ pt: "100%", position: "relative" }}>
+  <Box sx={{ pt: "90%", position: "relative" }}>
     {quantityInStock && (
-      <LabelStyle quantityInStock={quantityInStock}>{quantityInStock}</LabelStyle>
+      <LabelStyle quantityInStock={quantityInStock}>
+        {quantityInStock}
+      </LabelStyle>
     )}
     {!quantityInStock && <LabelStyle>Out of stock</LabelStyle>}
     <Box
@@ -28,4 +30,4 @@ const ProductImage = ({ imageUrl, name, quantityInStock }: Props) => (
   </Box>
 );
 
-export default ProductImage
+export default ProductImage;

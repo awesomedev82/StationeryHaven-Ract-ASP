@@ -34,3 +34,9 @@ export const tableHeaders: { label: string; align?: "left" | "right" | "center" 
   { label: "Subtotal", align: "right" },
   { label: "", align: "right" }, 
 ];
+
+export const sortOptions = [
+  {value: "name", label: "Alphabetical"},
+  {value: "priceDesc", label: "Price - Hight to low"},
+  {value: "price", label: "Price - Low to hight"},
+]

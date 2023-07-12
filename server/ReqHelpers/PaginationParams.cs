@@ -6,7 +6,7 @@ namespace server.ReqHelpers
 
     public int PageNumber { get; set; } = 1;
 
-    private int _pageSize = 6;
+    private int _pageSize = 9;
 
     public int PageSize
     {

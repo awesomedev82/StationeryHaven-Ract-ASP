@@ -51,6 +51,7 @@ const request = {
 const Product = {
   list: () => request.get("products"),
   details: (id: number) => request.get(`products/${id}`),
+  fetchFilters: () => request.get("products/filters")
 };
 
 export const TestErrors = {
