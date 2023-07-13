@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../helper/Loading";
-import NotFound from "../../pages/NotFound";
+import NotFound from "../../pages/NotFoundPage";
 import { Divider, Grid, TextField } from "@mui/material";
 import ProductTable from "../helper/Table";
 import { LoadingButton } from "@mui/lab";

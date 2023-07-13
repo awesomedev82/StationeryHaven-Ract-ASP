@@ -53,8 +53,7 @@ const ProductPage = () => {
 
   const debouncerSearch = debounce((event: any) => {
     handleSearchInputChange(event);
-  }, 1000);
-
+  }, 500);
 
   return (
     <>
@@ -89,8 +88,22 @@ const ProductPage = () => {
               }
             />
 
-            <CheckboxComponent label="Brands" options={brands} />
-            <CheckboxComponent label="Types" options={types} />
+            <CheckboxComponent
+              label="Brands"
+              options={brands}
+              checked={productParams.brands}
+              onChange={(items: string[]) =>
+                dispatch(setProductParams({ brands: items }))
+              }
+            />
+            <CheckboxComponent
+              label="Types"
+              options={types}
+              checked={productParams.types}
+              onChange={(items: string[]) =>
+                dispatch(setProductParams({ types: items }))
+              }
+            />
           </Grid>
           <Grid item xs={9}>
             <ProductList products={products} />
@@ -104,7 +117,16 @@ const ProductPage = () => {
               alignItems="center"
             >
               <Typography>Displaying 1-6 of 20 items</Typography>
-              <Pagination color="secondary" size="large" count={5} page={2} />
+              <Pagination
+                sx={{
+                  "& .Mui-selected": {
+                    backgroundColor: "rgba(20, 146, 181, 0.478) !important",
+                  },
+                }}
+                size="large"
+                count={5}
+                page={2}
+              />
             </Box>
           </Grid>
         </Grid>

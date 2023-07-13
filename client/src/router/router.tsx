@@ -6,7 +6,7 @@ import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import ErrorPage from "../pages/ErrorPage";
 import ServerError from "../errors/ServerError";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFoundPage";
 import BasketPage from "../pages/BasketPage";
 import CheckoutPage from "../pages/CheckoutPage";
 

@@ -112,7 +112,7 @@ export const productSlice = createSlice({
 
     // fetch single product
     buider.addCase(fetchProductAsync.pending, (state) => {
-      state.status = "pendingFetchProduct";
+      state.status = "filterFetchProduct";
     });
     buider.addCase(fetchProductAsync.fulfilled, (state, action) => {
       productsAdapter.upsertOne(state, action.payload);
