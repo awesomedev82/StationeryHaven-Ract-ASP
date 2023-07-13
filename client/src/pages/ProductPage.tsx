@@ -1,20 +1,14 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect } from "react";
 import Loading from "../components/helper/Loading";
-import {
-  Box,
-  Container,
-  Grid,
-  Pagination,
-  Typography,
-  debounce,
-} from "@mui/material";
+import { Container, Grid, Typography, debounce } from "@mui/material";
 import Slider from "../components/helper/Slider";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
   fetchFilters,
   fetchProductsAsync,
   productsSelectors,
+  setPageNumber,
   setProductParams,
 } from "../redux/productSlice";
 import { sortOptions } from "../lib/constants";
@@ -22,6 +16,7 @@ import {
   SearchComponent,
   RadioButton,
   CheckboxComponent,
+  PaginationComponent,
 } from "../components/dataControls";
 
 const ProductPage = () => {
@@ -33,6 +28,7 @@ const ProductPage = () => {
     brands,
     types,
     productParams,
+    metaData,
   } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
@@ -44,7 +40,7 @@ const ProductPage = () => {
     if (!filtersLoaded) dispatch(fetchFilters());
   }, [dispatch, filtersLoaded]);
 
-  if (status.includes("pending"))
+  if (status.includes("pending") || !metaData)
     return <Loading message="Loading products..." />;
 
   const handleSearchInputChange = (event: any) => {
@@ -71,7 +67,7 @@ const ProductPage = () => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={{ xs: 0, sm: 3, lg: 6 }}>
+        <Grid container columnSpacing={{ xs: 0, sm: 3, lg: 6 }}>
           <Grid item xs={3} sx={{ mb: 5 }}>
             <SearchComponent
               label="Search products"
@@ -110,24 +106,13 @@ const ProductPage = () => {
           </Grid>
 
           <Grid item xs={3} />
-          <Grid item xs={9}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography>Displaying 1-6 of 20 items</Typography>
-              <Pagination
-                sx={{
-                  "& .Mui-selected": {
-                    backgroundColor: "rgba(20, 146, 181, 0.478) !important",
-                  },
-                }}
-                size="large"
-                count={5}
-                page={2}
-              />
-            </Box>
+          <Grid item xs={9} sx={{ pt: 3 }}>
+            <PaginationComponent
+              metaData={metaData}
+              onPageChange={(page: number) =>
+                dispatch(setPageNumber({ pageNumber: page }))
+              }
+            />
           </Grid>
         </Grid>
       </Container>

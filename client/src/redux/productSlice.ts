@@ -4,6 +4,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { Product, ProductParams } from "../models/product";
+import { MetaData } from "../models/pagination";
 import agent from "../api/agent";
 import { RootState } from "./store/configureStore";
 
@@ -14,6 +15,7 @@ interface ProductState {
   brands: string[];
   types: string[];
   productParams: ProductParams;
+  metaData: MetaData | null;
 }
 
 const productsAdapter = createEntityAdapter<Product>();
@@ -26,25 +28,28 @@ function getAxiosParams(productParams: ProductParams) {
   params.append("orderBy", productParams.orderBy);
   if (productParams.searchTerm)
     params.append("searchTerm", productParams.searchTerm);
-  if (productParams.brands)
+  if (productParams.brands.length > 0)
     params.append("brands", productParams.brands.toString());
-  if (productParams.types)
+  if (productParams.types.length > 0)
     params.append("types", productParams.types.toString());
   return params;
 }
 
 // Define async thunks for fetching products, a single product, and filters
-export const fetchProductsAsync = createAsyncThunk<Product[], void, {state: RootState}>(
-  "product/fetchProductsAsync",
-  async (_, thunkAPI) => {
-    try {
-      const params = getAxiosParams(thunkAPI.getState().product.productParams)
-      return await agent.Product.list(params);
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.data });
-    }
+export const fetchProductsAsync = createAsyncThunk<
+  Product[],
+  void,
+  { state: RootState }
+>("product/fetchProductsAsync", async (_, thunkAPI) => {
+  try {
+    const params = getAxiosParams(thunkAPI.getState().product.productParams);
+    const response = await agent.Product.list(params);
+    thunkAPI.dispatch(setMetaData(response.metaData));
+    return response.items;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({ error: error.data });
   }
-);
+});
 
 export const fetchProductAsync = createAsyncThunk<Product, number>(
   "product/fetchProductAsync",
@@ -72,8 +77,10 @@ export const fetchFilters = createAsyncThunk(
 function initParams() {
   return {
     pageNumber: 1,
-    pageSize: 6,
+    pageSize: 9,
     orderBy: "name",
+    brands: [],
+    types: [],
   };
 }
 
@@ -86,14 +93,26 @@ export const productSlice = createSlice({
     brands: [],
     types: [],
     productParams: initParams(),
+    metaData: null,
   }),
   reducers: {
     setProductParams: (state, action) => {
       state.productsLoaded = false;
-      state.productParams = { ...state.productParams, ...action.payload };
+      state.productParams = {
+        ...state.productParams,
+        ...action.payload,
+        pageNumber: 1,
+      };
     },
     resetProductParams: (state) => {
       state.productParams = initParams();
+    },
+    setMetaData: (state, action) => {
+      state.metaData = action.payload;
+    },
+    setPageNumber: (state, action) => {
+      state.productsLoaded = false;
+      state.productParams = { ...state.productParams, ...action.payload };
     },
   },
   extraReducers: (buider) => {
@@ -143,4 +162,9 @@ export const productsSelectors = productsAdapter.getSelectors(
   (state: RootState) => state.product
 );
 
-export const { setProductParams, resetProductParams } = productSlice.actions;
+export const {
+  setProductParams,
+  resetProductParams,
+  setMetaData,
+  setPageNumber,
+} = productSlice.actions;
