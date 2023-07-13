@@ -23,7 +23,6 @@ const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);
   const {
     productsLoaded,
-    status,
     filtersLoaded,
     brands,
     types,
@@ -40,8 +39,7 @@ const ProductPage = () => {
     if (!filtersLoaded) dispatch(fetchFilters());
   }, [dispatch, filtersLoaded]);
 
-  if (status.includes("pending") || !metaData)
-    return <Loading message="Loading products..." />;
+  if (!filtersLoaded) return <Loading message="Loading products..." />;
 
   const handleSearchInputChange = (event: any) => {
     dispatch(setProductParams({ searchTerm: event.target.value }));
@@ -107,12 +105,14 @@ const ProductPage = () => {
 
           <Grid item xs={3} />
           <Grid item xs={9} sx={{ pt: 3 }}>
-            <PaginationComponent
-              metaData={metaData}
-              onPageChange={(page: number) =>
-                dispatch(setPageNumber({ pageNumber: page }))
-              }
-            />
+            {metaData && (
+              <PaginationComponent
+                metaData={metaData}
+                onPageChange={(page: number) =>
+                  dispatch(setPageNumber({ pageNumber: page }))
+                }
+              />
+            )}
           </Grid>
         </Grid>
       </Container>
