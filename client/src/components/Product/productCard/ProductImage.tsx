@@ -19,7 +19,6 @@ const ProductImage = ({ imageUrl, name, quantityInStock }: Props) => (
       sx={{
         width: "100%",
         height: "100%",
-        objectFit: "cover",
         position: "absolute",
         top: 0,
       }}

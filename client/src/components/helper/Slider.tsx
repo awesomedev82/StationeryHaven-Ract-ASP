@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sliderArray } from "../../lib/constants";
 import CustomTitle from "./CustomTitle";
 import {
@@ -10,6 +10,7 @@ import SliderButton from "./SliderButton";
 
 const Slider = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const currentSlide = sliderArray[currentImageIndex];
 
   const handlePreviousImage = () => {
@@ -24,21 +25,33 @@ const Slider = () => {
     );
   };
 
+  useEffect(() => {
+    const image = new Image();
+    image.src = currentSlide.image;
+    image.onload = () => {
+      setImageLoaded(true);
+    };
+  }, [currentSlide.image]);
+
   return (
-    <SliderContainer>
-      <SlideImage src={currentSlide.image} alt="slider" />
-      <SlideOverlay>
-        <CustomTitle
-          text={currentSlide.title}
-          variant="h4"
-          fontFamily="Monserat"
-          textTransform="uppercase"
-        />
-      </SlideOverlay>
-      
-      <SliderButton onClick={handlePreviousImage} direction="previous" />
-      <SliderButton onClick={handleNextImage} direction="next" />
-    </SliderContainer>
+    <>
+      {imageLoaded && (
+        <SliderContainer>
+          <SlideImage src={currentSlide.image} alt="slider" />
+          <SlideOverlay>
+            <CustomTitle
+              text={currentSlide.title}
+              variant="h4"
+              fontFamily="Monserat"
+              textTransform="uppercase"
+            />
+          </SlideOverlay>
+
+          <SliderButton onClick={handlePreviousImage} direction="previous" />
+          <SliderButton onClick={handleNextImage} direction="next" />
+        </SliderContainer>
+      )}
+    </>
   );
 };
 

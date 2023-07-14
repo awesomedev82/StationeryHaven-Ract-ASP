@@ -16,6 +16,7 @@ interface Props {
 
 const ProductList = ({ products }: Props) => {
   const { productsLoaded } = useAppSelector((state) => state.product);
+
   return (
     <GridStyle container spacing={5} sx={{ mb: "0" }}>
       {products.map((product) => (

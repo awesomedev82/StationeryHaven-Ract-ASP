@@ -49,6 +49,11 @@ const ProductPage = () => {
     handleSearchInputChange(event);
   }, 500);
 
+  const handlePageChange = (page: number) => {
+    window.scrollTo(0, 0); 
+    dispatch(setPageNumber({ pageNumber: page }));
+  };
+
   return (
     <>
       <Slider />
@@ -108,9 +113,7 @@ const ProductPage = () => {
             {metaData && (
               <PaginationComponent
                 metaData={metaData}
-                onPageChange={(page: number) =>
-                  dispatch(setPageNumber({ pageNumber: page }))
-                }
+                onPageChange={handlePageChange}
               />
             )}
           </Grid>
