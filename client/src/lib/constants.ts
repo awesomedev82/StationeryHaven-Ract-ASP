@@ -40,3 +40,5 @@ export const sortOptions = [
   {value: "priceDesc", label: "Price - Hight to low"},
   {value: "price", label: "Price - Low to hight"},
 ]
+
+export const checkoutSteps = ["Shipping address", "Review your order", "Payment details"];
