@@ -40,11 +40,15 @@ const BasketSummary = ({ subtotal, deliveryFee }: Props) => {
               <TableCell colSpan={2} style={{ fontSize: "25px" }}>
                 Subtotal
               </TableCell>
-              <TableCell align="right">{currencyFormat(subtotal)}</TableCell>
+              <TableCell align="right">
+                {currencyFormat(subtotal)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Delivery fee*</TableCell>
-              <TableCell align="right">{currencyFormat(deliveryFee)}</TableCell>
+              <TableCell align="right">
+                {currencyFormat(deliveryFee)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>

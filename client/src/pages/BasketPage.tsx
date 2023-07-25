@@ -5,18 +5,19 @@ import ShoppingBagIcon from "../images/shopping-bag.png";
 import BasketSummary from "../components/basket/BasketSummary";
 import EmptyBasket from "../components/helper/EmptyBasket";
 import { useAppSelector } from "../redux/store/configureStore";
+import {
+  calculateDeliveryFee,
+  calculateSubtotalCount,
+} from "../util/tableSummaryUtil";
 
 const BasketPage = () => {
   const { basket } = useAppSelector((state) => state.basket);
 
-  const subtotalCount =
-    basket?.items.reduce((a, b) => {
-      return a + b.price * b.quantity;
-    }, 0) ?? 0;
-
-  const deliveryFee = subtotalCount > 9999 ? 0 : 500;
-
   if (!basket || !basket.items.length) return <EmptyBasket />;
+
+  const subtotalCount = calculateSubtotalCount(basket?.items || []);
+
+  const deliveryFee = calculateDeliveryFee(subtotalCount);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
@@ -31,9 +32,7 @@ const BasketPage = () => {
         </ListItemIcon>
       </Typography>
 
-      <BasketTable
-        items={basket.items}
-      />
+      <BasketTable items={basket.items} />
       <BasketSummary subtotal={subtotalCount} deliveryFee={deliveryFee} />
       <Button
         component={RouterLink}
