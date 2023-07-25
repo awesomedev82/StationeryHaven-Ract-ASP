@@ -85,8 +85,9 @@ const CheckoutPage = () => {
                   </Button>
                 )}
                 <Button
-                    variant="contained"
-                    type="submit"
+                  disabled={!methods.formState.isValid}
+                  variant="contained"
+                  type="submit"
                   sx={{ mt: 3, ml: 1 }}
                 >
                   {activeStep === checkoutSteps.length - 1

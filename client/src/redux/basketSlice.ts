@@ -2,14 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Basket } from "../models/basket";
 import agent from "../api/agent";
 
+interface LoadingProductsState {
+  [productIdActionType: string]: boolean;
+}
+
 interface BasketState {
   basket: Basket | null;
-  status: string;
+  loadingProducts: LoadingProductsState;
 }
 
 const initialState: BasketState = {
   basket: null,
-  status: "idle",
+  loadingProducts: {},
 };
 
 export const addBasketItemAsync = createAsyncThunk<
@@ -37,6 +41,19 @@ export const removeBasketItemAsync = createAsyncThunk<
   }
 });
 
+const getProductIdFromAction = (action: any) => {
+  return action.meta.arg.productId;
+};
+
+const setLoading = (
+  state: BasketState,
+  productId: number,
+  actionType: "add" | "remove",
+  loading: boolean
+) => {
+  state.loadingProducts[`${productId}-${actionType}`] = loading;
+};
+
 export const basketSlice = createSlice({
   name: "basket",
   initialState,
@@ -44,41 +61,45 @@ export const basketSlice = createSlice({
     setBasket: (state, action) => {
       state.basket = action.payload;
     },
+    setLoadingProduct: (state, action) => {
+      const { productId } = action.payload;
+      setLoading(state, productId, "add", true);
+    },
   },
-  extraReducers: (buider) => {
-    buider.addCase(addBasketItemAsync.pending, (state, action) => {
-      state.status = "pendingAddItem" + action.meta.arg.productId;
+  extraReducers: (builder) => {
+    builder.addCase(addBasketItemAsync.pending, (state, action) => {
+      const productId = getProductIdFromAction(action);
+      setLoading(state, productId, "add", true);
     });
-    buider.addCase(addBasketItemAsync.fulfilled, (state, action) => {
+    builder.addCase(addBasketItemAsync.fulfilled, (state, action) => {
+      const productId = getProductIdFromAction(action);
       state.basket = action.payload;
-      state.status = "idle";
+      setLoading(state, productId, "add", false);
     });
-    buider.addCase(addBasketItemAsync.rejected, (state) => {
-      state.status = "idle";
+    builder.addCase(addBasketItemAsync.rejected, (state, action) => {
+      const productId = getProductIdFromAction(action);
+      setLoading(state, productId, "add", false);
     });
-    buider.addCase(removeBasketItemAsync.pending, (state, action) => {
-      state.status =
-        "pendingRemoveItem" + action.meta.arg.productId + action.meta.arg.name;
+    builder.addCase(removeBasketItemAsync.pending, (state, action) => {
+      const productId = getProductIdFromAction(action);
+      setLoading(state, productId, "remove", true);
     });
-    buider.addCase(removeBasketItemAsync.fulfilled, (state, action) => {
+    builder.addCase(removeBasketItemAsync.fulfilled, (state, action) => {
       const { productId, quantity } = action.meta.arg;
-
       const itemIndex = state.basket?.items.findIndex(
         (i) => i.productId === productId
       );
-
       if (itemIndex === -1 || itemIndex === undefined) return;
-      state.basket!.items[itemIndex].quantity -= quantity!;
-
+      state.basket!.items[itemIndex].quantity -= quantity;
       if (state.basket?.items[itemIndex].quantity === 0)
         state.basket.items.splice(itemIndex, 1);
-
-      state.status = "idle";
+      setLoading(state, productId, "remove", false);
     });
-    buider.addCase(removeBasketItemAsync.rejected, (state, action) => {
-      state.status = "idle";
+    builder.addCase(removeBasketItemAsync.rejected, (state, action) => {
+      const productId = getProductIdFromAction(action);
+      setLoading(state, productId, "remove", false);
     });
   },
 });
 
-export const { setBasket } = basketSlice.actions;
+export const { setBasket, setLoadingProduct } = basketSlice.actions;

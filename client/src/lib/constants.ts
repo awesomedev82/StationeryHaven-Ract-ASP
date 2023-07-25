@@ -42,3 +42,13 @@ export const sortOptions = [
 ]
 
 export const checkoutSteps = ["Shipping address", "Review your order", "Payment details"];
+
+type AlignType = "left" | "right" | "center" | undefined;
+
+export const basketTableHeaders: { label: string; align?: AlignType }[] = [
+  { label: "Product", align: "left" },
+  { label: "Price", align: "right" },
+  { label: "Quantity", align: "center" },
+  { label: "Subtotal", align: "right" },
+  { label: "", align: "right" }, 
+];

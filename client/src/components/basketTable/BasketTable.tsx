@@ -12,7 +12,6 @@ import { Add, Delete, Remove } from "@mui/icons-material";
 import { BasketItem } from "../../models/basket";
 import { tableHeaders } from "../../lib/constants";
 import { LoadingButton } from "@mui/lab";
-import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import { currencyFormat } from "../../util/util";
 import {
@@ -23,13 +22,17 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../redux/store/configureStore";
+import BasketTableHeader from "./TableHeader";
+import BasketPaginationComponent from "./BasketPaginationComponent";
 
 interface Props {
   items: BasketItem[];
+  isBasket?: boolean;
 }
 
-const BasketTable = ({ items }: Props) => {
-  const { status } = useAppSelector((state) => state.basket);
+const BasketTable = ({ items, isBasket = true }: Props) => {
+  const { loadingProducts } = useAppSelector((state: any) => state.basket);
+
   const dispatch = useAppDispatch();
 
   const [page, setPage] = useState(0);
@@ -49,18 +52,42 @@ const BasketTable = ({ items }: Props) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
+  const handleButtonClick = (
+    productId: number,
+    action: "add" | "remove" | "delete"
+  ) => {
+    switch (action) {
+      case "add":
+        dispatch(addBasketItemAsync({ productId }));
+        break;
+      case "remove":
+        dispatch(
+          removeBasketItemAsync({ productId, quantity: 1, name: "rem" })
+        );
+        break;
+      case "delete":
+        const itemToDelete = items.find((item) => item.productId === productId);
+        if (itemToDelete) {
+          dispatch(
+            removeBasketItemAsync({
+              productId,
+              quantity: itemToDelete.quantity,
+              name: "del",
+            })
+          );
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
-            <TableRow>
-              {tableHeaders.map((header, index) => (
-                <TableCell key={index} align={header.align}>
-                  {header.label}
-                </TableCell>
-              ))}
-            </TableRow>
+            <BasketTableHeader isBasket={isBasket} />
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
@@ -90,61 +117,45 @@ const BasketTable = ({ items }: Props) => {
                 </TableCell>
 
                 <TableCell align="center">
-                  <LoadingButton
-                    color="primary"
-                    onClick={() =>
-                      dispatch(
-                        removeBasketItemAsync({
-                          productId: item.productId,
-                          quantity: 1,
-                          name: "rem",
-                        })
-                      )
-                    }
-                    loading={
-                      status === "pendingRemoveItem" + item.productId + "rem"
-                    }
-                  >
-                    <Remove />
-                  </LoadingButton>
+                  {isBasket && (
+                    <LoadingButton
+                      color="primary"
+                      onClick={() =>
+                        handleButtonClick(item.productId, "remove")
+                      }
+                      loading={loadingProducts[`${item.productId}-remove`]}
+                    >
+                      <Remove />
+                    </LoadingButton>
+                  )}
                   <span>{item.quantity}</span>
-                  <LoadingButton
-                    color="primary"
-                    onClick={() =>
-                      dispatch(
-                        addBasketItemAsync({
-                          productId: item.productId,
-                        })
-                      )
-                    }
-                    loading={status === "pendingAddItem" + item.productId}
-                  >
-                    <Add />
-                  </LoadingButton>
+                  {isBasket && (
+                    <LoadingButton
+                      color="primary"
+                      onClick={() => handleButtonClick(item.productId, "add")}
+                      loading={loadingProducts[`${item.productId}-add`]}
+                    >
+                      <Add />
+                    </LoadingButton>
+                  )}
                 </TableCell>
                 <TableCell align="right">
                   ${((item.price / 100) * item.quantity).toFixed(2)}
                 </TableCell>
 
-                <TableCell align="right">
-                  <LoadingButton
-                    color="error"
-                    onClick={() =>
-                      dispatch(
-                        removeBasketItemAsync({
-                          productId: item.productId,
-                          quantity: item.quantity,
-                          name: "del",
-                        })
-                      )
-                    }
-                    loading={
-                      status === "pendingRemoveItem" + item.productId + "del"
-                    }
-                  >
-                    <Delete />
-                  </LoadingButton>
-                </TableCell>
+                {isBasket && (
+                  <TableCell align="right">
+                    <LoadingButton
+                      color="error"
+                      onClick={() =>
+                        handleButtonClick(item.productId, "delete")
+                      }
+                      loading={loadingProducts[`${item.productId}-remove`]}
+                    >
+                      <Delete />
+                    </LoadingButton>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
             {emptyRows > 0 && (
@@ -155,18 +166,14 @@ const BasketTable = ({ items }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Box width="100%" display="flex" justifyContent="right">
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={items.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelDisplayedRows={() => ``}
-        />
-      </Box>
+
+      <BasketPaginationComponent
+        totalCount={items.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 };

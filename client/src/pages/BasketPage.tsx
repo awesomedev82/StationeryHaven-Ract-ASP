@@ -1,6 +1,6 @@
 import { Box, Button, ListItemIcon, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import BasketTable from "../components/helper/BasketTable";
+import BasketTable from "../components/basketTable/BasketTable";
 import ShoppingBagIcon from "../images/shopping-bag.png";
 import BasketSummary from "../components/basket/BasketSummary";
 import EmptyBasket from "../components/helper/EmptyBasket";

@@ -17,10 +17,12 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { status } = useAppSelector((state : any) => state.basket);
+  const { loadingProducts } = useAppSelector((state: any) => state.basket);
   const { name, price, imageUrl, quantityInStock } = product;
   const dispatch = useAppDispatch();
 
+  const isLoading = loadingProducts[`${product.id}-add`]
+  
   return (
     <CardStyle>
       <ProductImage
@@ -55,7 +57,7 @@ const ProductCard = ({ product }: Props) => {
       </Box>
       <CardActions style={{ display: "flex", justifyContent: "center" }}>
         <AddToBasketButton
-          loading={status.includes("pendingAddItem" + product.id)}
+          loading={isLoading}
           handleAddItem={() =>
             dispatch(addBasketItemAsync({ productId: product.id }))
           }

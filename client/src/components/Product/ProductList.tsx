@@ -1,6 +1,6 @@
 import { Grid, styled } from "@mui/material";
 import { Product } from "../../models/product";
-import ProductListItem from "./ProductCard";
+import ProductCard from "./ProductCard";
 import { useAppSelector } from "../../redux/store/configureStore";
 import ProductSkeleton from "./ProductSkeleton";
 
@@ -24,7 +24,7 @@ const ProductList = ({ products }: Props) => {
           {!productsLoaded ? (
             <ProductSkeleton />
           ) : (
-            <ProductListItem key={product.id} product={product} />
+            <ProductCard product={product} />
           )}
         </Grid>
       ))}

@@ -18,7 +18,7 @@ import { fetchProductAsync, productsSelectors } from "../../redux/productSlice";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const { basket, status } = useAppSelector((state) => state.basket);
+  const { basket, loadingProducts } = useAppSelector((state) => state.basket);
   const { status: productStatus } = useAppSelector((state) => state.product);
   const product = useAppSelector((state) =>
     productsSelectors.selectById(state, id!)
@@ -38,6 +38,10 @@ const ProductDetails = () => {
     return <Loading message="Loading product..." />;
 
   if (!product) return <NotFound />;
+
+  const loadingStatus =
+    loadingProducts[`${product.id}-add`] ||
+    loadingProducts[`${product.id}-remove`];
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseInt(e.target.value);
@@ -108,7 +112,7 @@ const ProductDetails = () => {
               disabled={
                 item?.quantity === quantity || (!item && quantity === 0)
               }
-              loading={status.includes("pending")}
+              loading={loadingStatus}
               onClick={handleUpdateCart}
               sx={{ height: "55px", mt: 2 }}
               color="success"
