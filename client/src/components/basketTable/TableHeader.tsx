@@ -9,7 +9,7 @@ const TableHeader = ({ isBasket }: { isBasket: boolean }) => {
           {header.label}
         </TableCell>
       ))}
-      {isBasket && <TableCell align="center"></TableCell>}{" "}
+      {isBasket && <TableCell align="center"></TableCell>}
     </TableRow>
   );
 };

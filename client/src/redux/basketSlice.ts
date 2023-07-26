@@ -2,13 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Basket } from "../models/basket";
 import agent from "../api/agent";
 
-interface LoadingProductsState {
-  [productIdActionType: string]: boolean;
-}
-
 interface BasketState {
   basket: Basket | null;
-  loadingProducts: LoadingProductsState;
+  loadingProducts: any;
 }
 
 const initialState: BasketState = {
@@ -48,7 +44,7 @@ const getProductIdFromAction = (action: any) => {
 const setLoading = (
   state: BasketState,
   productId: number,
-  actionType: "add" | "remove",
+  actionType: "add" | "remove" | "delete",
   loading: boolean
 ) => {
   state.loadingProducts[`${productId}-${actionType}`] = loading;
@@ -81,11 +77,18 @@ export const basketSlice = createSlice({
       setLoading(state, productId, "add", false);
     });
     builder.addCase(removeBasketItemAsync.pending, (state, action) => {
+      const { name } = action.meta.arg;
       const productId = getProductIdFromAction(action);
-      setLoading(state, productId, "remove", true);
+
+      if (name === "delete") {
+        setLoading(state, productId, "delete", true);
+      } else {
+        setLoading(state, productId, "remove", true);
+      }
     });
     builder.addCase(removeBasketItemAsync.fulfilled, (state, action) => {
       const { productId, quantity } = action.meta.arg;
+
       const itemIndex = state.basket?.items.findIndex(
         (i) => i.productId === productId
       );
@@ -94,10 +97,16 @@ export const basketSlice = createSlice({
       if (state.basket?.items[itemIndex].quantity === 0)
         state.basket.items.splice(itemIndex, 1);
       setLoading(state, productId, "remove", false);
+      setLoading(state, productId, "delete", false);
     });
     builder.addCase(removeBasketItemAsync.rejected, (state, action) => {
       const productId = getProductIdFromAction(action);
-      setLoading(state, productId, "remove", false);
+      const { name } = action.meta.arg;
+      if (name === "delete") {
+        setLoading(state, productId, "delete", false);
+      } else {
+        setLoading(state, productId, "remove", false);
+      }
     });
   },
 });

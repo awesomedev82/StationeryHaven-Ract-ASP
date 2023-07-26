@@ -14,16 +14,10 @@ import { tableHeaders } from "../../lib/constants";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { currencyFormat } from "../../util/util";
-import {
-  addBasketItemAsync,
-  removeBasketItemAsync,
-} from "../../redux/basketSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../redux/store/configureStore";
+import { useAppSelector } from "../../redux/store/configureStore";
 import BasketTableHeader from "./TableHeader";
 import BasketPaginationComponent from "./BasketPaginationComponent";
+import useButtonClickHandler from "../../hooks/useButtonClickHandler";
 
 interface Props {
   items: BasketItem[];
@@ -32,8 +26,7 @@ interface Props {
 
 const BasketTable = ({ items, isBasket = true }: Props) => {
   const { loadingProducts } = useAppSelector((state: any) => state.basket);
-
-  const dispatch = useAppDispatch();
+  const { handleButtonClick } = useButtonClickHandler();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -52,35 +45,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
-  const handleButtonClick = (
-    productId: number,
-    action: "add" | "remove" | "delete"
-  ) => {
-    switch (action) {
-      case "add":
-        dispatch(addBasketItemAsync({ productId }));
-        break;
-      case "remove":
-        dispatch(
-          removeBasketItemAsync({ productId, quantity: 1, name: "rem" })
-        );
-        break;
-      case "delete":
-        const itemToDelete = items.find((item) => item.productId === productId);
-        if (itemToDelete) {
-          dispatch(
-            removeBasketItemAsync({
-              productId,
-              quantity: itemToDelete.quantity,
-              name: "del",
-            })
-          );
-        }
-        break;
-      default:
-        break;
-    }
-  };
+  console.log(loadingProducts);
 
   return (
     <>
@@ -121,7 +86,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                     <LoadingButton
                       color="primary"
                       onClick={() =>
-                        handleButtonClick(item.productId, "remove")
+                        handleButtonClick(item.productId, "remove", items)
                       }
                       loading={loadingProducts[`${item.productId}-remove`]}
                     >
@@ -132,7 +97,9 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                   {isBasket && (
                     <LoadingButton
                       color="primary"
-                      onClick={() => handleButtonClick(item.productId, "add")}
+                      onClick={() =>
+                        handleButtonClick(item.productId, "add", items)
+                      }
                       loading={loadingProducts[`${item.productId}-add`]}
                     >
                       <Add />
@@ -148,9 +115,11 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                     <LoadingButton
                       color="error"
                       onClick={() =>
-                        handleButtonClick(item.productId, "delete")
+                        handleButtonClick(item.productId, "delete", items)
                       }
-                      loading={loadingProducts[`${item.productId}-remove`]}
+                      loading={
+                        loadingProducts[`${item.productId}-delete`] === true
+                      }
                     >
                       <Delete />
                     </LoadingButton>
