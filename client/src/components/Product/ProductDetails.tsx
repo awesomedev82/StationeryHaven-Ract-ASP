@@ -10,11 +10,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../redux/store/configureStore";
-import {
-  addBasketItemAsync,
-  removeBasketItemAsync,
-} from "../../redux/basketSlice";
 import { fetchProductAsync, productsSelectors } from "../../redux/productSlice";
+import useButtonClickHandler from "../../hooks/useButtonClickHandler";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +21,8 @@ const ProductDetails = () => {
     productsSelectors.selectById(state, id!)
   );
   const dispatch = useAppDispatch();
+
+  const { handleButtonClick } = useButtonClickHandler();
 
   const [quantity, setQuantity] = useState(0);
 
@@ -52,21 +51,9 @@ const ProductDetails = () => {
 
   const handleUpdateCart = () => {
     if (!item || quantity > item.quantity) {
-      const updatedQuantity = item ? quantity - item.quantity : quantity;
-      dispatch(
-        addBasketItemAsync({
-          productId: product?.id!,
-          quantity: updatedQuantity,
-        })
-      );
+      handleButtonClick(product.id!, "add", basket?.items ?? []);
     } else {
-      const updatedQuantity = item.quantity - quantity;
-      dispatch(
-        removeBasketItemAsync({
-          productId: product?.id!,
-          quantity: updatedQuantity,
-        })
-      );
+      handleButtonClick(product.id!, "remove", basket?.items ?? []);
     }
   };
 

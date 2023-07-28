@@ -14,19 +14,16 @@ import AddressForm from "../components/checkout/AddressForm";
 import { checkoutSteps } from "../lib/constants";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "../components/checkout/checkoutValidation";
+import { validationSchema } from "../components/myValidationSchema/checkoutValidation";
+
+const stepsComponents = [<AddressForm />, <Review />, <PaymentForm />];
 
 function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <Review />;
-    case 2:
-      return <PaymentForm />;
-    default:
-      throw new Error("Unknown step");
+  const component = stepsComponents[step];
+  if (component) {
+    return component;
   }
+  throw new Error("Unknown step");
 }
 
 const CheckoutPage = () => {
