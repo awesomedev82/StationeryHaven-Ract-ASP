@@ -28,6 +28,9 @@ const BoxStyle = styled(Box)(({ theme }) => ({
     backgroundColor: "#198416cd",
     color: "#fff",
     marginTop: 20,
+    "&:hover": {
+      backgroundColor: "#198416",
+    },
   },
 
   [theme.breakpoints.down("sm")]: {

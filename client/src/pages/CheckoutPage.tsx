@@ -14,7 +14,7 @@ import AddressForm from "../components/checkout/AddressForm";
 import { checkoutSteps } from "../lib/constants";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "../components/myValidationSchema/checkoutValidation";
+import { validationSchema } from "../myValidationSchema/checkoutValidation";
 
 const stepsComponents = [<AddressForm />, <Review />, <PaymentForm />];
 

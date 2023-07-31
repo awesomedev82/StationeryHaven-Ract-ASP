@@ -5,9 +5,8 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./Footer";
 import ContainerWithoutMargins from "./ContainerWithoutMargins";
@@ -18,6 +17,12 @@ import Loading from "../components/helper/Loading";
 import { minHeight } from "../muiStyles/helper/helper";
 import { useAppDispatch } from "../redux/store/configureStore";
 import { setBasket } from "../redux/basketSlice";
+
+const LazyToastContainer = lazy(() =>
+  import("react-toastify").then((module) => ({
+    default: module.ToastContainer,
+  }))
+);
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -62,11 +67,13 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ToastContainer
-          position="bottom-right"
-          hideProgressBar
-          theme="colored"
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LazyToastContainer
+            position="bottom-right"
+            hideProgressBar
+            theme="colored"
+          />
+        </Suspense>
         <CssBaseline />
         <Navbar darkMode={darkMode} handleChange={handleChange} theme={theme} />
         {location.pathname === "/" ? (

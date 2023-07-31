@@ -1,8 +1,9 @@
 import { IconButton, styled } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { memo } from "react";
 
 interface Props {
-  onClick: () => void,
+  onClick: () => void;
   direction: string;
 }
 
@@ -17,7 +18,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-const SliderButton = ({ onClick, direction } : Props) => {
+const SliderButton = ({ onClick, direction }: Props) => {
   const positionStyles =
     direction === "previous"
       ? { left: 0, marginLeft: "5%" }
@@ -30,4 +31,4 @@ const SliderButton = ({ onClick, direction } : Props) => {
   );
 };
 
-export default SliderButton;
+export default memo(SliderButton);

@@ -1,7 +1,7 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect } from "react";
 import Loading from "../components/helper/Loading";
-import { Container, Grid, Typography, debounce } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import Slider from "../components/helper/Slider";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
@@ -45,12 +45,8 @@ const ProductPage = () => {
     dispatch(setProductParams({ searchTerm: event.target.value }));
   };
 
-  const debouncerSearch = debounce((event: any) => {
-    handleSearchInputChange(event);
-  }, 500);
-
   const handlePageChange = (page: number) => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     dispatch(setPageNumber({ pageNumber: page }));
   };
 
@@ -77,7 +73,7 @@ const ProductPage = () => {
               searchWithIcon
               iconPosition="start"
               productParams={productParams}
-              onChange={debouncerSearch}
+              onChange={handleSearchInputChange}
             />
             <RadioButton
               sortOptions={sortOptions}
@@ -105,7 +101,11 @@ const ProductPage = () => {
             />
           </Grid>
           <Grid item xs={9}>
-            <ProductList products={products} />
+            {productsLoaded ? (
+              <ProductList products={products} />
+            ) : (
+              <Loading message="Loading products..." />
+            )}
           </Grid>
 
           <Grid item xs={3} />

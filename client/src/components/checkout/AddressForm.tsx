@@ -18,10 +18,10 @@ const AddressForm = () => {
           <TextInput control={control} name="lastName" label="Last Name" />
         </Grid>
         <Grid item xs={12}>
-          <TextInput control={control} name="address1" label="Address line 1" />
+          <TextInput control={control} name="address1" label="Email address" />
         </Grid>
         <Grid item xs={12}>
-          <TextInput control={control} name="address2" label="Address line 2" />
+          <TextInput control={control} name="address2" label="Home Address" />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextInput control={control} name="city" label="City" />

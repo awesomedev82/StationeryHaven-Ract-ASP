@@ -33,11 +33,17 @@ const Slider = () => {
     };
   }, [currentSlide.image]);
 
+  useEffect(() => {
+    const interval = setInterval(handleNextImage, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {imageLoaded && (
         <SliderContainer>
-          <SlideImage src={currentSlide.image} alt="slider" />
+          <SlideImage src={currentSlide.image} alt="slider" loading="lazy" />
           <SlideOverlay>
             <CustomTitle
               text={currentSlide.title}

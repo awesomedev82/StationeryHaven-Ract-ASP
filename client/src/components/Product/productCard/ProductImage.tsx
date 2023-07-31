@@ -25,6 +25,7 @@ const ProductImage = ({ imageUrl, name, quantityInStock }: Props) => (
       component="img"
       src={imageUrl}
       alt={name}
+      loading="lazy"
     />
   </Box>
 );

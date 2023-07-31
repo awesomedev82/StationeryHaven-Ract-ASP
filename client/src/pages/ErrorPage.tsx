@@ -55,8 +55,8 @@ const ErrorPage = () => {
         <Alert severity="error">
           <AlertTitle>ValidationError</AlertTitle>
           <List>
-            {validationErrors.map((e) => (
-              <ListItem key="error">{e}</ListItem>
+            {validationErrors.map((e, index) => (
+              <ListItem key={index}>{e}</ListItem>
             ))}
           </List>
         </Alert>
