@@ -25,8 +25,7 @@ const LazyToastContainer = lazy(() =>
 );
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
@@ -44,22 +43,17 @@ function App() {
     }
   }, [dispatch]);
 
-  const paletteType = darkMode ? "dark" : "light";
   const theme = createTheme({
     palette: {
-      mode: paletteType,
+      mode: "light",
       success: {
         main: "rgb(1, 161, 81)",
       },
       background: {
-        default: paletteType === "light" ? "#dfdede6e" : "#121212",
+        default: "#dfdede6e",
       },
     },
   });
-
-  const handleChange = () => {
-    setDarkMode(!darkMode);
-  };
 
   if (loading && location.pathname === "/basket")
     return <Loading message="Loading basket..." />;
@@ -75,7 +69,7 @@ function App() {
           />
         </Suspense>
         <CssBaseline />
-        <Navbar darkMode={darkMode} handleChange={handleChange} theme={theme} />
+        <Navbar theme={theme} />
         {location.pathname === "/" ? (
           <ContainerWithoutMargins>
             <Outlet />

@@ -26,14 +26,18 @@ const Slider = () => {
   };
 
   useEffect(() => {
-    const image = new Image();
-    image.src = currentSlide.image;
-    image.onload = () => {
-      setImageLoaded(true);
-    };
-  }, [currentSlide.image]);
+    const imagePromises = sliderArray.map((slide) => {
+      return new Promise<void>((resolve) => {
+        const image = new Image();
+        image.src = slide.image;
+        image.onload = () => resolve();
+      });
+    });
 
-  useEffect(() => {
+    Promise.all(imagePromises).then(() => {
+      setImageLoaded(true);
+    });
+
     const interval = setInterval(handleNextImage, 5000);
 
     return () => clearInterval(interval);
@@ -50,6 +54,7 @@ const Slider = () => {
               variant="h4"
               fontFamily="Monserat"
               textTransform="uppercase"
+              textAlign="center"
             />
           </SlideOverlay>
 

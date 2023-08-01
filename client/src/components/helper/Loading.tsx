@@ -5,13 +5,19 @@ import CustomTitle from "./CustomTitle";
 
 interface Props {
   message?: string;
+  productsLoaded?: boolean;
 }
 
-const Loading = ({ message = "Loading..." }: Props) => {
+const Loading = ({ message = "Loading...", productsLoaded }: Props) => {
   return (
     <Box minHeight={minHeight}>
       <Backdrop open={true} invisible={true}>
-        <StyledFlexBox sx={{ mb: "10%" }}>
+        <StyledFlexBox
+          sx={{
+            mb: productsLoaded ? "10%" : "0",
+            mt: productsLoaded ? "20%" : "0",
+          }}
+        >
           <CircularProgress size={70} color="secondary" sx={{ mr: "15px" }} />
           <CustomTitle text={message} variant="h4" sx={{ mt: "20px" }} />
         </StyledFlexBox>

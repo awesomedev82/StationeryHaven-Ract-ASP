@@ -14,22 +14,22 @@ import { links } from "../lib/constants";
 import { ShoppingCart } from "@mui/icons-material";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
-import { StyledBox, StyledFlexBox, navListStyles } from "../muiStyles/navbar/navbar.styled";
+import {
+  StyledBox,
+  StyledFlexBox,
+  navListStyles,
+} from "../muiStyles/navbar/navbar.styled";
 import { useAppSelector } from "../redux/store/configureStore";
 
 interface Props {
-  darkMode: boolean;
-  handleChange: () => void;
   theme: Theme;
 }
 
-const Navbar = ({ darkMode, theme }: Props) => {
-  const backgroundColor = darkMode ? "#242323" : "#ffffff";
-  const text = darkMode ? "#ffffff" : "#000000";
+const Navbar = ({ theme }: Props) => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
-  const { basket } = useAppSelector(state => state.basket);
-  
+  const { basket } = useAppSelector((state) => state.basket);
+
   const itemCount = basket?.items.reduce((a, b) => {
     return a + b.quantity;
   }, 0);
@@ -38,8 +38,8 @@ const Navbar = ({ darkMode, theme }: Props) => {
     <AppBar
       position="sticky"
       style={{
-        background: backgroundColor,
-        color: text,
+        color: "#000000",
+        background: "#ffffff",
         height: "var(--navbar-height)",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
       }}
@@ -48,7 +48,6 @@ const Navbar = ({ darkMode, theme }: Props) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          height: "100%",
           justifyContent: "space-between",
         }}
       >
@@ -60,9 +59,9 @@ const Navbar = ({ darkMode, theme }: Props) => {
               alignItems: "center",
               height: "100%",
               justifyContent: "center",
-              marginLeft: 0
+              marginLeft: 0,
             }}
-            component={NavLink}
+            component={Link}
             to="/"
           >
             <Icon
@@ -99,10 +98,10 @@ const Navbar = ({ darkMode, theme }: Props) => {
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mr: 2 }}
+                sx={{ width: "40px", mr: 2 }}
               >
                 <Badge badgeContent={itemCount} color="success">
-                  <ShoppingCart style={{color: "#1281a0"}}/>
+                  <ShoppingCart style={{ color: "#1281a0" }} />
                 </Badge>
               </IconButton>
             </StyledFlexBox>

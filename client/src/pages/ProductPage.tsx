@@ -1,5 +1,5 @@
 import ProductList from "../components/product/ProductList";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Loading from "../components/helper/Loading";
 import { Container, Grid, Typography } from "@mui/material";
 import Slider from "../components/helper/Slider";
@@ -30,6 +30,7 @@ const ProductPage = () => {
     metaData,
   } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!productsLoaded) dispatch(fetchProductsAsync());
@@ -46,7 +47,7 @@ const ProductPage = () => {
   };
 
   const handlePageChange = (page: number) => {
-    window.scrollTo(0, 0);
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
     dispatch(setPageNumber({ pageNumber: page }));
   };
 
@@ -54,7 +55,10 @@ const ProductPage = () => {
     <>
       <Slider />
 
-      <Container style={{ maxWidth: "1390px", paddingBottom: "5vh" }}>
+      <Container
+        ref={containerRef}
+        style={{ maxWidth: "1390px", height: "auto", paddingBottom: "50px" }}
+      >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item marginTop="1vh">
             <Typography
@@ -104,7 +108,7 @@ const ProductPage = () => {
             {productsLoaded ? (
               <ProductList products={products} />
             ) : (
-              <Loading message="Loading products..." />
+              <Loading message="Loading products..." productsLoaded />
             )}
           </Grid>
 
