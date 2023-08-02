@@ -26,22 +26,16 @@ const Slider = () => {
   };
 
   useEffect(() => {
-    const imagePromises = sliderArray.map((slide) => {
-      return new Promise<void>((resolve) => {
         const image = new Image();
-        image.src = slide.image;
-        image.onload = () => resolve();
-      });
-    });
-
-    Promise.all(imagePromises).then(() => {
-      setImageLoaded(true);
-    });
+        image.src = currentSlide.image;
+        image.onload = () => {
+          setImageLoaded(true);
+        };
 
     const interval = setInterval(handleNextImage, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentImageIndex, currentSlide.image]);
 
   return (
     <>

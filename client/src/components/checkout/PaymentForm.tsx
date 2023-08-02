@@ -2,13 +2,15 @@ import { useState } from "react";
 import {
   Typography,
   Grid,
-  TextField,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+import TextInput from "../TextInput";
+import { useFormContext } from "react-hook-form";
 
 const PaymentForm = () => {
   const [skipPayment, setSkipPayment] = useState(false);
+  const { control } = useFormContext();
 
   const handleSkipPaymentChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -35,41 +37,24 @@ const PaymentForm = () => {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <TextField
-                id="cardName"
+              <TextInput
+                name="nameOnCard"
                 label="Name on card"
-                fullWidth
-                autoComplete="cc-name"
-                variant="standard"
+                control={control}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                id="cardNumber"
+              <TextInput
+                name="cardNumber"
                 label="Card number"
-                fullWidth
-                autoComplete="cc-number"
-                variant="standard"
+                control={control}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                id="expDate"
-                label="Expiry date"
-                fullWidth
-                autoComplete="cc-exp"
-                variant="standard"
-              />
+              <TextInput name="expDate" label="Expiry date" control={control} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                id="cvv"
-                label="CVV"
-                helperText="Last three digits on signature strip"
-                fullWidth
-                autoComplete="cc-csc"
-                variant="standard"
-              />
+              <TextInput name="cvv" label="CVV" control={control} />
             </Grid>
           </Grid>
         </>

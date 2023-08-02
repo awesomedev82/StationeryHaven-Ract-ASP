@@ -1,7 +1,7 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect, useRef } from "react";
 import Loading from "../components/helper/Loading";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Slider from "../components/helper/Slider";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
@@ -55,15 +55,23 @@ const ProductPage = () => {
     <>
       <Slider />
 
-      <Container
+      <Box
         ref={containerRef}
-        style={{ maxWidth: "1390px", height: "auto", paddingBottom: "50px" }}
+        sx={{
+          padding: "20px",
+          margin: "0 auto",
+          maxWidth: "1390px",
+        }}
       >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item marginTop="1vh">
             <Typography
               variant="h5"
-              sx={{ fontFamily: "Montserrat", fontSize: 30, paddingTop: "13%" }}
+              sx={{
+                fontFamily: "Montserrat",
+                fontSize: 30,
+                paddingTop: "13%",
+              }}
             >
               All Products:
             </Typography>
@@ -122,7 +130,7 @@ const ProductPage = () => {
             )}
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </>
   );
 };

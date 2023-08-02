@@ -45,8 +45,6 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
-  console.log(loadingProducts);
-
   return (
     <>
       <TableContainer component={Paper}>

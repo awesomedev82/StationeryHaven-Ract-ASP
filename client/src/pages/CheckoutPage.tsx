@@ -31,7 +31,7 @@ const CheckoutPage = () => {
     mode: "all",
     resolver: yupResolver(validationSchema),
   });
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(2);
 
   const handleNext = (data: FieldValues) => {
     if (activeStep === 0) {
