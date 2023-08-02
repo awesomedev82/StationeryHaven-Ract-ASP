@@ -92,10 +92,17 @@ const Basket = {
     request.delete(`basket?productId=${productId}&quantity=${quantity}`),
 };
 
+const Orders = {
+  list: () => request.get("orders"),
+  details: (id: number) => request.get(`orders/${id}`),
+  create: (values: any) => request.post("orders", values),
+};
+
 const agent = {
   Product,
   TestErrors,
   Basket,
+  Orders,
 };
 
 export default agent;

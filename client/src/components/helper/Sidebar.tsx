@@ -18,9 +18,10 @@ import { useAppSelector } from "../../redux/store/configureStore";
 const Sidebar = () => {
   const { basket } = useAppSelector((state) => state.basket);
 
-  const itemCount = basket?.items.reduce((a, b) => {
-    return a + b.quantity;
-  }, 0);
+  const itemCount =
+    basket?.items?.reduce((a, b) => {
+      return a + b.quantity;
+    }, 0) || 0;
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

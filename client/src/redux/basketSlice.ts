@@ -57,6 +57,9 @@ export const basketSlice = createSlice({
     setBasket: (state, action) => {
       state.basket = action.payload;
     },
+    clearBasket: (state) => {
+      state.basket = null;
+    },
     setLoadingProduct: (state, action) => {
       const { productId } = action.payload;
       setLoading(state, productId, "add", true);
@@ -111,4 +114,4 @@ export const basketSlice = createSlice({
   },
 });
 
-export const { setBasket, setLoadingProduct } = basketSlice.actions;
+export const { setBasket, setLoadingProduct, clearBasket } = basketSlice.actions;

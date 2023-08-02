@@ -29,19 +29,23 @@ function App() {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const buyerId = getCookie("buyerId");
+useEffect(() => {
+  const buyerId = getCookie("buyerId");
 
-    if (buyerId) {
-      setLoading(true);
-      agent.Basket.get()
-        .then((basket) => dispatch(setBasket(basket)))
-        .catch((e) => console.log(e))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [dispatch]);
+  if (buyerId) {
+    setLoading(true);
+    agent.Basket.get()
+      .then((basket) => {
+        if (basket !== null) {      
+          dispatch(setBasket(basket));
+        }
+      })
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
+  } else {
+    setLoading(false);
+  }
+}, [dispatch]);
 
   const theme = createTheme({
     palette: {

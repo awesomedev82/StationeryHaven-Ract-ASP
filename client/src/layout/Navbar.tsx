@@ -30,9 +30,9 @@ const Navbar = ({ theme }: Props) => {
 
   const { basket } = useAppSelector((state) => state.basket);
 
-  const itemCount = basket?.items.reduce((a, b) => {
+  const itemCount = basket?.items?.reduce((a, b) => {
     return a + b.quantity;
-  }, 0);
+  }, 0) || 0;
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
