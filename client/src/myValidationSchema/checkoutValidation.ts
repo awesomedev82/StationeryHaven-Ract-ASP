@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const validationSchema = yup.object({
   fullName: yup.string().required("Full name is required"),
-  address1: yup
+  emailAddress: yup
     .string()
     .email("Invalid email address")
     .required("Email address is required"),
