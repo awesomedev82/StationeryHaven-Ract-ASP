@@ -76,10 +76,10 @@ const Sidebar = () => {
               color: "rgb(18, 129, 160)",
               cursor: "pointer",
               fontFamily: "Montserrat",
-              pl: "3vw"
+              pl: "3vw",
             }}
           >
-             Orders
+            Orders
           </Typography>
         </NavLink>
 

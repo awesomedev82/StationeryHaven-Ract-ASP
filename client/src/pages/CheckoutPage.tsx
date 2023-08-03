@@ -19,6 +19,7 @@ import agent from "../api/agent";
 import { useAppDispatch } from "../redux/store/configureStore";
 import { clearBasket } from "../redux/basketSlice";
 import { LoadingButton } from "@mui/lab";
+import { addNewOrder } from "../redux/orderSlice";
 
 const stepsComponents = [<AddressForm />, <Review />, <PaymentForm />];
 
@@ -48,6 +49,9 @@ const CheckoutPage = () => {
       try {
         const orderNumber = await agent.Orders.create({ shippingAddress });
         setOrderNumber(orderNumber);
+
+        const fetchedOrder = await agent.Orders.details(orderNumber);
+        dispatch(addNewOrder(fetchedOrder));
         setActiveStep(activeStep + 1);
         dispatch(clearBasket());
         setLoading(false);
@@ -87,7 +91,7 @@ const CheckoutPage = () => {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #{ orderNumber}. We have emailed your order
+                Your order number is #{orderNumber}. We have emailed your order
                 confirmation, and will send you an update when your order has
                 shipped (it will be set in future).
               </Typography>

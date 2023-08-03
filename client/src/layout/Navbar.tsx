@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { links } from "../lib/constants";
-import { ShoppingCart, ShoppingBasket } from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
 import {

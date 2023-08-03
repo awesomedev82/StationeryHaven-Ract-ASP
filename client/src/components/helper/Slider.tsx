@@ -2,7 +2,11 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import { sliderArray } from "../../lib/constants";
-import { SliderContainer, SlideImage, SlideOverlay } from "../../muiStyles/slider.styled";
+import {
+  SliderContainer,
+  SlideImage,
+  SlideOverlay,
+} from "../../muiStyles/slider.styled";
 import CustomTitle from "./CustomTitle";
 
 const Slider = () => {
@@ -19,6 +23,7 @@ const Slider = () => {
       interval={5000}
       showStatus={false}
       showThumbs={false}
+      showIndicators={false}
     >
       {sliderArray.map((slide, index) => (
         <div key={index}>
