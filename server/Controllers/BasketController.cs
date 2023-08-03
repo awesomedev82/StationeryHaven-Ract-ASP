@@ -72,21 +72,26 @@ namespace API.Controllers
 
     private Basket CreateBasket()
     {
-      var buyerId = Guid.NewGuid().ToString();
+    string buyerId = Request.Cookies["buyerId"];
 
-      var cookieOptions = new CookieOptions
-      {
-        IsEssential = true,
-        Expires = DateTime.Now.AddDays(30)
-      };
+    if (string.IsNullOrEmpty(buyerId))
+    {
+        buyerId = Guid.NewGuid().ToString();
 
-      Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+        var cookieOptions = new CookieOptions
+        {
+            IsEssential = true,
+            Expires = DateTime.Now.AddDays(30)
+        };
 
-      var basket = new Basket { BuyerId = buyerId };
+        Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+    }
 
-      _context.Baskets.Add(basket);
+    var basket = new Basket { BuyerId = buyerId };
 
-      return basket;
+    _context.Baskets.Add(basket);
+
+    return basket;
     }
 
 

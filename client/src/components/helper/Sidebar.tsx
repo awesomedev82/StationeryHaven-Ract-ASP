@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -67,6 +68,20 @@ const Sidebar = () => {
         >
           <ShoppingCart style={{ color: "#1281a0" }} />
         </Badge>
+
+        <NavLink to="/order" style={{ textDecoration: "none" }}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "rgb(18, 129, 160)",
+              cursor: "pointer",
+              fontFamily: "Montserrat",
+              pl: "3vw"
+            }}
+          >
+             Orders
+          </Typography>
+        </NavLink>
 
         <IconButton
           onClick={() => setSidebarOpen(!sidebarOpen)}

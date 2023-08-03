@@ -6,11 +6,12 @@ import {
   ListItem,
   Theme,
   Toolbar,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { links } from "../lib/constants";
-import { ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart, ShoppingBasket } from "@mui/icons-material";
 import Sidebar from "../components/helper/Sidebar";
 import { ReactComponent as Icon } from "../images/result.svg";
 import {
@@ -30,9 +31,10 @@ const Navbar = ({ theme }: Props) => {
 
   const { basket } = useAppSelector((state) => state.basket);
 
-  const itemCount = basket?.items?.reduce((a, b) => {
-    return a + b.quantity;
-  }, 0) || 0;
+  const itemCount =
+    basket?.items?.reduce((a, b) => {
+      return a + b.quantity;
+    }, 0) || 0;
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -69,6 +71,20 @@ const Navbar = ({ theme }: Props) => {
               <ShoppingCart style={{ color: "#1281a0" }} />
             </Badge>
           </IconButton>
+
+          <NavLink to="/order" style={{ textDecoration: "none" }}>
+            <Typography
+              variant="h6"
+              sx={{
+                color: "rgb(18, 129, 160)",
+                marginRight: "6px",
+                cursor: "pointer",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Orders
+            </Typography>
+          </NavLink>
         </StyledFlexBox>
       </>
     );

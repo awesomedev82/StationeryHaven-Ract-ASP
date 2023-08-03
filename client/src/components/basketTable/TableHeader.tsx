@@ -1,7 +1,13 @@
 import { TableCell, TableRow } from "@mui/material";
 import { basketTableHeaders } from "../../lib/constants";
 
-const TableHeader = ({ isBasket }: { isBasket: boolean }) => {
+const TableHeader = ({
+  isBasket,
+  isOrder,
+}: {
+  isBasket: boolean;
+  isOrder?: boolean;
+}) => {
   return (
     <TableRow>
       {basketTableHeaders.map((header, index) => (
@@ -9,7 +15,7 @@ const TableHeader = ({ isBasket }: { isBasket: boolean }) => {
           {header.label}
         </TableCell>
       ))}
-      {isBasket && <TableCell align="center"></TableCell>}
+      {isBasket && !isOrder && <TableCell align="center"></TableCell>}
     </TableRow>
   );
 };

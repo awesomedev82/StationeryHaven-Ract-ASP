@@ -36,7 +36,7 @@ useEffect(() => {
     setLoading(true);
     agent.Basket.get()
       .then((basket) => {
-        if (basket !== null) {      
+        if (basket !== null) {
           dispatch(setBasket(basket));
         }
       })

@@ -22,9 +22,10 @@ import useButtonClickHandler from "../../hooks/useButtonClickHandler";
 interface Props {
   items: BasketItem[];
   isBasket?: boolean;
+  isOrder?: boolean;
 }
 
-const BasketTable = ({ items, isBasket = true }: Props) => {
+const BasketTable = ({ items, isBasket = true, isOrder }: Props) => {
   const { loadingProducts } = useAppSelector((state: any) => state.basket);
   const { handleButtonClick } = useButtonClickHandler();
 
@@ -50,7 +51,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
-            <BasketTableHeader isBasket={isBasket} />
+            <BasketTableHeader isBasket={isBasket} isOrder={ isOrder} />
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
@@ -80,7 +81,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                 </TableCell>
 
                 <TableCell align="center">
-                  {isBasket && (
+                  {isBasket && !isOrder && (
                     <LoadingButton
                       color="primary"
                       onClick={() =>
@@ -92,7 +93,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                     </LoadingButton>
                   )}
                   <span>{item.quantity}</span>
-                  {isBasket && (
+                  {isBasket && !isOrder && (
                     <LoadingButton
                       color="primary"
                       onClick={() =>
@@ -108,7 +109,7 @@ const BasketTable = ({ items, isBasket = true }: Props) => {
                   ${((item.price / 100) * item.quantity).toFixed(2)}
                 </TableCell>
 
-                {isBasket && (
+                {isBasket && !isOrder && (
                   <TableCell align="right">
                     <LoadingButton
                       color="error"

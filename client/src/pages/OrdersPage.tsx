@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Typography,
+  Paper,
+  Divider,
+  ListItemIcon,
+} from "@mui/material";
 import agent from "../api/agent";
-import { getCookie } from "../util/util";
+import { currencyFormat, formatData, getCookie } from "../util/util";
+import BasketTable from "../components/basketTable/BasketTable";
+import deliveryIcon from "../images/order-tracking.png";
 
 const OrdersPage = () => {
-  const [orders, setOrders] = useState([]); 
+  const [orders, setOrders] = useState([]);
   const buyerIdFromCookie = getCookie("buyerId");
 
   useEffect(() => {
     if (buyerIdFromCookie) {
-      agent.Orders.list() 
+      agent.Orders.list()
         .then((allOrders) => {
           const userOrders = allOrders.filter(
             (order: any) => order.buyerId === buyerIdFromCookie
@@ -19,18 +28,44 @@ const OrdersPage = () => {
     }
   }, [buyerIdFromCookie]);
 
-  console.log(orders);
-
   return (
-    <div>
-      <h1>Your Orders</h1>
+    <Container maxWidth="lg" sx={{ paddingBottom: "5vh" }}>
+      <Typography variant="h2" gutterBottom sx={{ textAlign: "center" }}>
+        Your Orders
+        <ListItemIcon>
+          <img
+            src={deliveryIcon}
+            alt="Delivery Icon"
+            style={{ marginLeft: 14, height: "8vh" }}
+          />
+        </ListItemIcon>
+      </Typography>
       {orders.map((order: any) => (
-        <div key={order.id}>
-          <p>Order ID: {order.id}</p>
-          <p>Order Date: {order.orderDate}</p>
-        </div>
+        <Paper
+          key={order.id}
+          elevation={3}
+          sx={{ padding: "20px", marginBottom: "20px" }}
+        >
+          <Typography variant="h5" gutterBottom>
+            Order №{order.id}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <span style={{ fontWeight: "bold" }}>Order Date:</span>{" "}
+            {formatData(order.orderDate)}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <span style={{ fontWeight: "bold" }}>Delivery Fee:</span>{" "}
+            {currencyFormat(order.deliveryFee)}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <span style={{ fontWeight: "bold" }}>Total Sum:</span>{" "}
+            {currencyFormat(order.total)}
+          </Typography>
+          <Divider sx={{ marginY: "10px" }} />
+          <BasketTable items={order.orderItems} isBasket isOrder />
+        </Paper>
       ))}
-    </div>
+    </Container>
   );
 };
 
