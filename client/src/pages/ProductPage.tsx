@@ -2,7 +2,6 @@ import ProductList from "../components/product/ProductList";
 import { useEffect, useRef } from "react";
 import Loading from "../components/helper/Loading";
 import { Box, Grid, Typography } from "@mui/material";
-import Slider from "../components/helper/Slider";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
   fetchFilters,
@@ -18,6 +17,7 @@ import {
   CheckboxComponent,
   PaginationComponent,
 } from "../components/dataControls";
+import Slider from "../components/helper/Slider";
 
 const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);

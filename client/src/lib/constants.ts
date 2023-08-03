@@ -1,6 +1,6 @@
 import StoreIcon from "@mui/icons-material/Store";
-import InfoIcon from "@mui/icons-material/Info";
-import EmailIcon from "@mui/icons-material/Email";
+// import InfoIcon from "@mui/icons-material/Info";
+// import EmailIcon from "@mui/icons-material/Email";
 import ErrorIcon from "@mui/icons-material/Error";
 
 import slider1 from "../images/slider/slider1.jpg";
@@ -10,8 +10,8 @@ import slider3 from "../images/slider/slider3.jpg";
 
 export const links = [
   { title: "home", path: "/", icon: StoreIcon },
-  { title: "about", path: "/about", icon: InfoIcon },
-  { title: "contact", path: "/contact", icon: EmailIcon },
+  // { title: "about", path: "/about", icon: InfoIcon },
+  // { title: "contact", path: "/contact", icon: EmailIcon },
   { title: "error", path: "/error", icon: ErrorIcon },
 ];
 

@@ -1,62 +1,51 @@
-import { useEffect, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useState } from "react";
 import { sliderArray } from "../../lib/constants";
+import { SliderContainer, SlideImage, SlideOverlay } from "../../muiStyles/slider.styled";
 import CustomTitle from "./CustomTitle";
-import {
-  SlideImage,
-  SlideOverlay,
-  SliderContainer,
-} from "../../muiStyles/slider.styled";
-import SliderButton from "./SliderButton";
 
 const Slider = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const currentSlide = sliderArray[currentImageIndex];
 
-  const handlePreviousImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? sliderArray.length - 1 : prevIndex - 1
-    );
+  const handleImageLoad = () => {
+    setImageLoaded(true);
   };
-
-  const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === sliderArray.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  useEffect(() => {
-        const image = new Image();
-        image.src = currentSlide.image;
-        image.onload = () => {
-          setImageLoaded(true);
-        };
-
-    const interval = setInterval(handleNextImage, 5000);
-
-    return () => clearInterval(interval);
-  }, [currentImageIndex, currentSlide.image]);
 
   return (
-    <>
-      {imageLoaded && (
-        <SliderContainer>
-          <SlideImage src={currentSlide.image} alt="slider" loading="lazy" />
-          <SlideOverlay>
-            <CustomTitle
-              text={currentSlide.title}
-              variant="h4"
-              fontFamily="Monserat"
-              textTransform="uppercase"
-              textAlign="center"
+    <Carousel
+      autoPlay
+      infiniteLoop
+      interval={5000}
+      showStatus={false}
+      showThumbs={false}
+    >
+      {sliderArray.map((slide, index) => (
+        <div key={index}>
+          <SliderContainer>
+            <SlideImage
+              src={slide.image}
+              alt={`Slide ${index}`}
+              loading="lazy"
+              onLoad={handleImageLoad}
+              style={{
+                opacity: imageLoaded ? 1 : 0,
+                transition: "opacity 0.3s",
+              }}
             />
-          </SlideOverlay>
-
-          <SliderButton onClick={handlePreviousImage} direction="previous" />
-          <SliderButton onClick={handleNextImage} direction="next" />
-        </SliderContainer>
-      )}
-    </>
+            <SlideOverlay>
+              <CustomTitle
+                text={slide.title}
+                variant="h4"
+                fontFamily="Monserat"
+                textTransform="uppercase"
+                textAlign="center"
+              />
+            </SlideOverlay>
+          </SliderContainer>
+        </div>
+      ))}
+    </Carousel>
   );
 };
 
