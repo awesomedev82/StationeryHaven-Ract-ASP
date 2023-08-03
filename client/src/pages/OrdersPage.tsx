@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -10,9 +10,12 @@ import agent from "../api/agent";
 import { currencyFormat, formatData, getCookie } from "../util/util";
 import BasketTable from "../components/basketTable/BasketTable";
 import deliveryIcon from "../images/order-tracking.png";
+import EmptyOrders from "../components/helper/EmptyOrders";
+import Loading from "../components/helper/Loading";
 
 const OrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any>([]);
+  const [ordersLoaded, setOrdersLoaded] = useState(false);
   const buyerIdFromCookie = getCookie("buyerId");
 
   useEffect(() => {
@@ -23,10 +26,22 @@ const OrdersPage = () => {
             (order: any) => order.buyerId === buyerIdFromCookie
           );
           setOrders(userOrders);
+          setOrdersLoaded(true);
         })
         .catch((error) => console.log(error));
     }
   }, [buyerIdFromCookie]);
+
+  if (!ordersLoaded) {
+    return <Loading message="Loading orders..." />;
+  }
+
+  if (!orders.length) {
+    return <EmptyOrders />;
+  }
+
+  console.log(orders);
+  
 
   return (
     <Container maxWidth="lg" sx={{ paddingBottom: "5vh" }}>
