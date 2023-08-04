@@ -7,7 +7,8 @@ import { PaginatedResponse } from "../models/pagination";
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 // Configure axios defaults
-axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 axios.defaults.withCredentials = true;
 
 // Helper function to extract the response data
@@ -16,7 +17,7 @@ const responseBody = (response: AxiosResponse) => response.data;
 // Intercept the response to add a delay before returning it
 axios.interceptors.response.use(
   async (response) => {
-    await sleep();
+    if(process.env.NODE_ENV === "development") await sleep();
 
     const pagination = response.headers["pagination"];
     if (pagination) {

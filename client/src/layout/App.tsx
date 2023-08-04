@@ -66,11 +66,6 @@ useEffect(() => {
     <>
       <ThemeProvider theme={theme}>
         <Suspense fallback={<div>Loading...</div>}>
-          <LazyToastContainer
-            position="bottom-right"
-            hideProgressBar
-            theme="colored"
-          />
         </Suspense>
         <CssBaseline />
         <Navbar theme={theme} />
