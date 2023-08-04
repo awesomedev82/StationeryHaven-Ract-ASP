@@ -5,7 +5,7 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./Footer";
@@ -17,35 +17,30 @@ import Loading from "../components/helper/Loading";
 import { minHeight } from "../muiStyles/helper/helper";
 import { useAppDispatch } from "../redux/store/configureStore";
 import { setBasket } from "../redux/basketSlice";
-
-const LazyToastContainer = lazy(() =>
-  import("react-toastify").then((module) => ({
-    default: module.ToastContainer,
-  }))
-);
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-useEffect(() => {
-  const buyerId = getCookie("buyerId");
+  useEffect(() => {
+    const buyerId = getCookie("buyerId");
 
-  if (buyerId) {
-    setLoading(true);
-    agent.Basket.get()
-      .then((basket) => {
-        if (basket !== null) {
-          dispatch(setBasket(basket));
-        }
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
-  } else {
-    setLoading(false);
-  }
-}, [dispatch]);
+    if (buyerId) {
+      setLoading(true);
+      agent.Basket.get()
+        .then((basket) => {
+          if (basket !== null) {
+            dispatch(setBasket(basket));
+          }
+        })
+        .catch((e) => console.log(e))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch]);
 
   const theme = createTheme({
     palette: {
@@ -65,8 +60,12 @@ useEffect(() => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<div>Loading...</div>}>
-        </Suspense>
+        <ToastContainer
+          position="bottom-right"
+          hideProgressBar
+          theme="colored"
+        />
+        <Suspense fallback={<div>Loading...</div>}></Suspense>
         <CssBaseline />
         <Navbar theme={theme} />
         {location.pathname === "/" ? (
