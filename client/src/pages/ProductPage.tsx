@@ -11,9 +11,9 @@ import {
   setProductParams,
 } from "../redux/productSlice";
 import Slider from "../components/helper/Slider";
-import ProductFilter from "../components/ProductFilter";
 import { PaginationComponent } from "../components/dataControls";
 import CustomTypography from "../components/helper/CustomTypography";
+import ProductFilter from "../components/ProductFilter";
 
 const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);

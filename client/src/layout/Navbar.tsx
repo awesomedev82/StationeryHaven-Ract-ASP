@@ -6,7 +6,6 @@ import {
   ListItem,
   Theme,
   Toolbar,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
