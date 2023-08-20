@@ -1,7 +1,7 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect, useRef } from "react";
 import Loading from "../components/helper/Loading";
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
   fetchFilters,
@@ -13,6 +13,7 @@ import {
 import Slider from "../components/helper/Slider";
 import ProductFilter from "../components/ProductFilter";
 import { PaginationComponent } from "../components/dataControls";
+import CustomTypography from "../components/helper/CustomTypography";
 
 const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);
@@ -63,16 +64,9 @@ const ProductPage = () => {
       >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item marginTop="1vh">
-            <Typography
-              variant="h5"
-              sx={{
-                fontFamily: "Montserrat",
-                fontSize: 30,
-                paddingTop: "13%",
-              }}
-            >
+            <CustomTypography variant="h5" fontSize={30} paddingTop="13%">
               All Products:
-            </Typography>
+            </CustomTypography>
           </Grid>
         </Grid>
 
@@ -85,13 +79,9 @@ const ProductPage = () => {
                 types={types}
                 onSearchChange={handleSearchInputChange}
               />
-              <Typography
-                variant="h6"
-                mt={1}
-                sx={{ fontFamily: "Montserrat", fontSize: 28 }}
-              >
+              <CustomTypography variant="h6" fontSize={28} marginTop={1}>
                 Filter Results:
-              </Typography>
+              </CustomTypography>
             </Grid>
           ) : (
             <Grid item xs={12} md={3}>

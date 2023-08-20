@@ -20,6 +20,7 @@ import {
   navListStyles,
 } from "../muiStyles/navbar/navbar.styled";
 import { useAppSelector } from "../redux/store/configureStore";
+import CustomTypography from "../components/helper/CustomTypography";
 
 interface Props {
   theme: Theme;
@@ -73,17 +74,15 @@ const Navbar = ({ theme }: Props) => {
           </IconButton>
 
           <NavLink to="/order" style={{ textDecoration: "none" }}>
-            <Typography
+            <CustomTypography
               variant="h6"
-              sx={{
-                color: "rgb(18, 129, 160)",
-                marginRight: "6px",
-                cursor: "pointer",
-                fontFamily: "Montserrat",
-              }}
+              color="rgb(18, 129, 160)"
+              cursor="pointer"
+              fontFamily="Montserrat"
+              marginRight="6px"
             >
               Orders
-            </Typography>
+            </CustomTypography>
           </NavLink>
         </StyledFlexBox>
       </>

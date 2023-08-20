@@ -6,7 +6,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,6 +14,7 @@ import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { StyledFlexBox } from "../../muiStyles/navbar/navbar.styled";
 import { useAppSelector } from "../../redux/store/configureStore";
+import CustomTypography from "./CustomTypography";
 
 const Sidebar = () => {
   const { basket } = useAppSelector((state) => state.basket);
@@ -70,17 +70,15 @@ const Sidebar = () => {
         </Badge>
 
         <NavLink to="/order" style={{ textDecoration: "none" }}>
-          <Typography
+          <CustomTypography
             variant="body1"
-            sx={{
-              color: "rgb(18, 129, 160)",
-              cursor: "pointer",
-              fontFamily: "Montserrat",
-              pl: "3vw",
-            }}
+            color="rgb(18, 129, 160)"
+            cursor="pointer"
+            fontFamily="Montserrat"
+            pl="3vw"
           >
             Orders
-          </Typography>
+          </CustomTypography>
         </NavLink>
 
         <IconButton
