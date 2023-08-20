@@ -1,7 +1,7 @@
 import ProductList from "../components/product/ProductList";
 import { useEffect, useRef } from "react";
 import Loading from "../components/helper/Loading";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../redux/store/configureStore";
 import {
   fetchFilters,
@@ -10,14 +10,9 @@ import {
   setPageNumber,
   setProductParams,
 } from "../redux/productSlice";
-import { sortOptions } from "../lib/constants";
-import {
-  SearchComponent,
-  RadioButton,
-  CheckboxComponent,
-  PaginationComponent,
-} from "../components/dataControls";
 import Slider from "../components/helper/Slider";
+import ProductFilter from "../components/ProductFilter";
+import { PaginationComponent } from "../components/dataControls";
 
 const ProductPage = () => {
   const products = useAppSelector(productsSelectors.selectAll);
@@ -31,6 +26,9 @@ const ProductPage = () => {
   } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (!productsLoaded) dispatch(fetchProductsAsync());
@@ -79,54 +77,46 @@ const ProductPage = () => {
         </Grid>
 
         <Grid container columnSpacing={{ xs: 0, sm: 3, lg: 6 }}>
-          <Grid item xs={3} sx={{ mb: 5 }}>
-            <SearchComponent
-              label="Search products"
-              searchWithIcon
-              iconPosition="start"
-              productParams={productParams}
-              onChange={handleSearchInputChange}
-            />
-            <RadioButton
-              sortOptions={sortOptions}
-              selectedValue={productParams.orderBy}
-              onChange={(e) =>
-                dispatch(setProductParams({ orderBy: e.target.value }))
-              }
-            />
+          {isMediumScreen ? (
+            <Grid item xs={12} md={9}>
+              <ProductFilter
+                productParams={productParams}
+                brands={brands}
+                types={types}
+                onSearchChange={handleSearchInputChange}
+              />
+              <Typography
+                variant="h6"
+                mt={1}
+                sx={{ fontFamily: "Montserrat", fontSize: 28 }}
+              >
+                Filter Results:
+              </Typography>
+            </Grid>
+          ) : (
+            <Grid item xs={12} md={3}>
+              <ProductFilter
+                productParams={productParams}
+                brands={brands}
+                types={types}
+                onSearchChange={handleSearchInputChange}
+              />
+            </Grid>
+          )}
 
-            <CheckboxComponent
-              label="Brands"
-              options={brands}
-              checked={productParams.brands}
-              onChange={(items: string[]) =>
-                dispatch(setProductParams({ brands: items }))
-              }
-            />
-            <CheckboxComponent
-              label="Types"
-              options={types}
-              checked={productParams.types}
-              onChange={(items: string[]) =>
-                dispatch(setProductParams({ types: items }))
-              }
-            />
-          </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={isMediumScreen ? 3 : 9}>
             {productsLoaded ? (
               <ProductList products={products} />
             ) : (
               <Loading message="Loading products..." productsLoaded />
             )}
-          </Grid>
-
-          <Grid item xs={3} />
-          <Grid item xs={9} sx={{ pt: 3 }}>
             {metaData && (
-              <PaginationComponent
-                metaData={metaData}
-                onPageChange={handlePageChange}
-              />
+              <Grid item xs={12}>
+                <PaginationComponent
+                  metaData={metaData}
+                  onPageChange={handlePageChange}
+                />
+              </Grid>
             )}
           </Grid>
         </Grid>

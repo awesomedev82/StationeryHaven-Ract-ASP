@@ -5,7 +5,7 @@ const ServerError = () => {
   const { state } = useLocation();
 
   return (
-    <Container component={Paper} sx={{mt: "2%", mb: "2%"}}>
+    <Container component={Paper} sx={{ mt: "2%", mb: "2%" }}>
       {state?.error ? (
         <>
           <Typography
@@ -14,7 +14,8 @@ const ServerError = () => {
             color="secondary"
             sx={{ paddingTop: 1.5 }}
           >
-            {state.error.title}
+            Problem with connection to the server. Please check your internet
+            connection or try again later.
           </Typography>
           <Divider />
           <Typography
