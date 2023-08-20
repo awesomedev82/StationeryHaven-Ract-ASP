@@ -16,7 +16,6 @@ export const SlideOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
-  width: "40vw",
   height: "15vh",
   background: "rgba(255, 255, 255, 0.295)",
   display: "flex",
@@ -24,4 +23,12 @@ export const SlideOverlay = styled(Box)(({ theme }) => ({
   alignItems: "center",
   transform: "translate(-50%, -50%)",
   color: "white",
+
+  [theme.breakpoints.down("md")]: {
+    width: "65%",
+  },
+
+  [theme.breakpoints.up("lg")]: {
+    width: "50%",
+  },
 }));
