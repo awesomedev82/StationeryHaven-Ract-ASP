@@ -1,6 +1,6 @@
 # 🌟Full Stack Stationery Heaven Store🌟
 
-### This project is an e-commerce application called "Stationery Heaven" that I developed to enhance my understanding of building a full-stack React and .NET app. The application allows users to browse and purchase various stationery items.
+### This project is an e-commerce application called "Stationery Heaven" that I developed to show my skillsets of building a full-stack React and .NET app. The application allows users to browse and purchase various stationery items.
 
 ## Functionalities Implemented 🛍️
 
